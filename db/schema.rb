@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_23_195015) do
+ActiveRecord::Schema.define(version: 2022_04_23_212530) do
 
   create_table "deputies", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,17 @@ ActiveRecord::Schema.define(version: 2022_04_23_195015) do
     t.string "current_uf"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "legislatures", force: :cascade do |t|
+    t.string "legislature_number"
+    t.string "uf"
+    t.string "party_acronym"
+    t.string "legislature_code"
+    t.integer "deputy_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["deputy_id"], name: "index_legislatures_on_deputy_id"
   end
 
 end
