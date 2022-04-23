@@ -47,5 +47,12 @@ describe 'ExtractExpenseDataFromCsvService' do
       expect(response["141405"].first["vlrLiquido"]).to eq("3500")
       expect(response["141405"].second["vlrLiquido"]).to eq("3600")
     end
+
+    it 'Should return all expenses data on csv file' do
+      response = ExtractExpenseDataFromCsvService.new(file: @file).call
+      expect(response.keys.count).to eq(2)
+      expect(response["141405"].count).to eq(2)
+      expect(response["160511"].count).to eq(1)
+    end
   end
 end
