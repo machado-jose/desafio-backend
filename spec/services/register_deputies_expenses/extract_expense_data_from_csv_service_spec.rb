@@ -40,5 +40,12 @@ describe 'ExtractExpenseDataFromCsvService' do
       expect(response["160511"].first["ideDocumento"]).to eq("7279940")
       expect(response["160511"].first["urlDocumento"]).to eq("https://www.camara.leg.br/cota-parlamentar/documentos/publ/2240/2021/7279940.pdf")
     end
+
+    it 'Should return expenses data list of one deputy' do
+      response = ExtractExpenseDataFromCsvService.new(file: @file, uf: "SC").call
+      expect(response["141405"].count).to eq(2)
+      expect(response["141405"].first["vlrLiquido"]).to eq("3500")
+      expect(response["141405"].second["vlrLiquido"]).to eq("3600")
+    end
   end
 end
