@@ -54,5 +54,19 @@ describe 'ExtractExpenseDataFromCsvService' do
       expect(response["141405"].count).to eq(2)
       expect(response["160511"].count).to eq(1)
     end
+
+    context 'Should must raise an error' do
+      it 'when uf is empty' do
+        expect{
+          ExtractExpenseDataFromCsvService.new(file: @file, uf: '').call
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'when uf is not String' do
+        expect{
+          ExtractExpenseDataFromCsvService.new(file: @file, uf: 30).call
+        }.to raise_error(ArgumentError)
+      end
+    end
   end
 end
