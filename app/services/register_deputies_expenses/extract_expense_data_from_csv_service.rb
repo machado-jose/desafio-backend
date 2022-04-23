@@ -9,9 +9,10 @@ class ExtractExpenseDataFromCsvService
   def call
     csv = CSV.parse(@file, headers: true)
     headers = csv.headers.select{ |header| !header.eql? 'ideCadastro' }
-    csv = csv.select{ |row| row["sgUF"].upcase.eql? @uf } if @uf.upcase.present?
+    csv = csv.select{ |row| row["sgUF"].upcase.eql? @uf } if @uf.present?
     response = {}
     csv.each do |row|
+      next if row["sgUF"].nil? or row["ideCadastro"].nil?
       response[row["ideCadastro"]] = [] if response[row["ideCadastro"]].nil?
       data = {}
       headers.each do |header|
