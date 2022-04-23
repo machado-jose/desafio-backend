@@ -4,7 +4,7 @@ FactoryBot.define do
     ide_register { "99999" }
     current_uf { "rj" }
 
-    initiliaze_with {
+    initialize_with {
       new.custom_initialize(
         name: name,
         ide_register: ide_register,

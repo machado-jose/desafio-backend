@@ -19,5 +19,9 @@ describe 'Deputy' do
       expect(deputy.ide_register).to eq(@ide_register)
       expect(deputy.current_uf).to eq(@current_uf.upcase)
     end
+
+    it 'Should save deputy on DB' do
+      expect { create(:deputy) }.to change { Deputy.count }.by(1)
+    end
   end
 end
