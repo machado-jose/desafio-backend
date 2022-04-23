@@ -1,7 +1,10 @@
 require 'csv'
+require './app/services/infrastructure/validator.rb'
 
 class ExtractExpenseDataFromCsvService
   def initialize(file:, uf: nil)
+    Validator.assert_empty_string uf unless uf.nil?
+
     @file = file
     @uf = uf
   end
