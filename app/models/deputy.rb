@@ -1,6 +1,8 @@
 require './app/services/infrastructure/validator.rb'
 
 class Deputy < ApplicationRecord
+  has_many :legislatures 
+  
   def custom_initialize(name:, ide_register:, current_uf:)
     change_name(name: name)
     change_ide_register(ide_register: ide_register)
