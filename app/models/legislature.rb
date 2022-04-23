@@ -2,6 +2,7 @@ require './app/services/infrastructure/validator.rb'
 
 class Legislature < ApplicationRecord
   belongs_to :deputy
+  has_many :deputy_expenses, class_name: 'FinancialManagement::DeputyExpense'
   
   def custom_initialize(deputy:, legislature_number:, uf:, party_acronym:, legislature_code:)
     change_deputy(deputy: deputy)
