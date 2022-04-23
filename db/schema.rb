@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_23_212530) do
+ActiveRecord::Schema.define(version: 2022_04_23_223113) do
 
   create_table "deputies", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,33 @@ ActiveRecord::Schema.define(version: 2022_04_23_212530) do
     t.string "current_uf"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "financial_management_deputy_expenses", force: :cascade do |t|
+    t.integer "legislature_id", null: false
+    t.string "sub_quota_number"
+    t.string "sub_quota_description"
+    t.string "sub_quota_specification_number"
+    t.string "sub_quota_specification_description"
+    t.string "provider"
+    t.string "provider_registration_number"
+    t.string "document_number"
+    t.integer "document_type"
+    t.datetime "issuance_date"
+    t.decimal "document_value", precision: 8, scale: 2
+    t.decimal "reverse_value", precision: 8, scale: 2
+    t.decimal "net_value", precision: 8, scale: 2
+    t.string "competence"
+    t.integer "installment_number"
+    t.string "passager"
+    t.string "leg_trip"
+    t.string "batch_number"
+    t.string "reimbursement_number"
+    t.decimal "refund_value", precision: 8, scale: 2
+    t.string "applicant_identifier"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["legislature_id"], name: "index_financial_management_deputy_expenses_on_legislature_id"
   end
 
   create_table "legislatures", force: :cascade do |t|
@@ -31,4 +58,5 @@ ActiveRecord::Schema.define(version: 2022_04_23_212530) do
     t.index ["deputy_id"], name: "index_legislatures_on_deputy_id"
   end
 
+  add_foreign_key "financial_management_deputy_expenses", "legislatures"
 end
