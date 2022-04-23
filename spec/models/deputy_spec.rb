@@ -23,5 +23,67 @@ describe 'Deputy' do
     it 'Should save deputy on DB' do
       expect { create(:deputy) }.to change { Deputy.count }.by(1)
     end
+
+    context 'Should raise an error' do
+      it 'when passing empty name' do
+        expect{
+          Deputy.new.custom_initialize(
+            name: '',
+            ide_register: @ide_register,
+            current_uf: @current_uf
+          )
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'when passing nil name' do
+        expect{
+          Deputy.new.custom_initialize(
+            name: nil,
+            ide_register: @ide_register,
+            current_uf: @current_uf
+          )
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'when passing empty ide_register' do
+        expect{
+          Deputy.new.custom_initialize(
+            name: @name,
+            ide_register: '',
+            current_uf: @current_uf
+          )
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'when passing nil ide_register' do
+        expect{
+          Deputy.new.custom_initialize(
+            name: @name,
+            ide_register: nil,
+            current_uf: @current_uf
+          )
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'when passing empty current_uf' do
+        expect{
+          Deputy.new.custom_initialize(
+            name: @name,
+            ide_register: @ide_register,
+            current_uf: ''
+          )
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'when passing nil current_uf' do
+        expect{
+          Deputy.new.custom_initialize(
+            name: @name,
+            ide_register: @ide_register,
+            current_uf: nil
+          )
+        }.to raise_error(ArgumentError)
+      end
+    end
   end
 end
