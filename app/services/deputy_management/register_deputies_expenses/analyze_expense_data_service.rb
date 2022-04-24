@@ -6,10 +6,12 @@ class AnalyzeExpenseDataService
   end
 
   def call
-    deputies_by_id = Deputy.where(ide_register: @expense_data.keys.uniq).group_by(&:id)
+    deputies_by_ide_register = Deputy.where(ide_register: @expense_data.keys.uniq).group_by(&:ide_register)
     @expense_data.each do |ideCadastro, deputy_expense_list|
-      if deputies_by_id.any?{ |deputy_expense| deputy_expense.has_key? ideCadastro }
-        deputy = deputies_by_id[ideCadastro]
+      if deputies_by_ide_register[ideCadastro].present? and 
+        deputies_by_ide_register[ideCadastro].any?{ |deputy| deputy.ide_register.eql? ideCadastro }
+        
+        deputy = deputies_by_ide_register[ideCadastro].first
       else  
         deputy = @create_deputy_service.call(
           name: deputy_expense_list.first["txNomeParlamentar"],
