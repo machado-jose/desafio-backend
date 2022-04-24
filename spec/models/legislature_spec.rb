@@ -280,4 +280,40 @@ describe 'Legislature' do
       end
     end
   end
+
+  context '#all_deputy_expense_of_year' do
+    before :each do
+      @legislature = create(:legislature)
+    end
+
+    it 'Should return all deputy expense of specific year' do
+      deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      deputy_expense_3 = create(:deputy_expense, legislature: @legislature, expense_year: '2020')
+      all_deputy_expenses = @legislature.all_deputy_expense_of_year(year: '2021')
+      expect(all_deputy_expenses.count).to eq(2)
+      expect(all_deputy_expenses).to include(deputy_expense_1)
+      expect(all_deputy_expenses).to include(deputy_expense_2)
+    end
+
+    it 'Should return empty array' do
+      deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      expect(@legislature.all_deputy_expense_of_year(year: '2020').empty?).to be_truthy
+    end
+
+    context 'Should raise an error' do
+      it 'if passing empty year' do
+        expect{
+          @legislature.all_deputy_expense_of_year(year: '')
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'if passing integer year' do
+        expect{
+          @legislature.all_deputy_expense_of_year(year: 2021)
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end
