@@ -4,10 +4,10 @@ class Legislature < ApplicationRecord
   belongs_to :deputy
   has_many :deputy_expenses, class_name: 'FinancialManagement::DeputyExpense', inverse_of: :legislature
   validates :deputy, presence: { strict: true }
-  validates :legislature_number, presence: { strict: true }
+  validates :legislature_number, presence: { strict: true }, uniqueness: { strict: true }
   validates :uf, presence: { strict: true }
   validates :party_acronym, presence: { strict: true }
-  validates :legislature_code, presence: { strict: true }
+  validates :legislature_code, presence: { strict: true }, uniqueness: { strict: true }
   validates_associated :deputy_expenses, presence: { strict: true }
   after_validation :upcase_legislature_data
 
