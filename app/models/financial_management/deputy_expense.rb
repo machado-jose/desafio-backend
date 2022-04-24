@@ -9,7 +9,7 @@ class FinancialManagement::DeputyExpense < ApplicationRecord
   validates :sub_quota_specification_description, presence: { strict: true }
   validates :provider, presence: { strict: true }
   validates :provider_registration_number, presence: { strict: true }
-  validates :document_number, presence: { strict: true }
+  validates :document_number, presence: { strict: true }, uniqueness: { strict: true }
   validates :document_type, presence: { strict: true }
   validates :issuance_date, presence: { strict: true }
   validates :document_value, presence: { strict: true }
