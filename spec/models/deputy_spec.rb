@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Deputy' do
-  context 'initialize' do
+  context '#initialize' do
     before :each do
       @name = Faker::Name.unique.name 
       @ide_register = Faker::Code.unique.npi
@@ -83,6 +83,60 @@ describe 'Deputy' do
             ide_register: @ide_register,
             current_uf: nil
           ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
+      end
+    end
+  end
+
+  context '#add_legislature' do
+    before :each do 
+      @deputy = create(:deputy)
+      @legislature_number = Faker::Code.unique.npi 
+      @uf = "rj" 
+      @party_acronym = "qpb" 
+      @legislature_code = Faker::Code.unique.npi
+    end
+
+    it 'Should add new legislature' do
+      expect{
+        @deputy.add_legislature(
+          legislature_number: @legislature_number,
+          uf: @uf,
+          party_acronym: @party_acronym,
+          legislature_code: @legislature_code
+        )
+        @deputy.save!
+      }.to change { Legislature.count }.by(1)
+    end
+
+    it 'Should not save legistature with duplicate legislature_code' do
+      @deputy.add_legislature(
+        legislature_number: @legislature_number,
+        uf: @uf,
+        party_acronym: @party_acronym,
+        legislature_code: @legislature_code
+      )
+      @deputy.save!
+      expect{
+        @deputy.add_legislature(
+          legislature_number: Faker::Code.unique.npi ,
+          uf: 'sc',
+          party_acronym: 'ooo',
+          legislature_code: @legislature_code
+        )
+        @deputy.save!
+      }.to change { Legislature.count }.by(0)
+    end
+
+    context 'Should raise an error' do
+      it 'when legislature is invalid' do
+        expect{
+          @deputy.add_legislature(
+            legislature_number: nil,
+            uf: @uf,
+            party_acronym: @party_acronym,
+            legislature_code: @legislature_code
+          )
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
     end
