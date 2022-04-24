@@ -105,7 +105,6 @@ describe 'Deputy' do
           party_acronym: @party_acronym,
           legislature_code: @legislature_code
         )
-        @deputy.save!
       }.to change { Legislature.count }.by(1)
     end
 

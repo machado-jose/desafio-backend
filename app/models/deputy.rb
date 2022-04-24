@@ -15,6 +15,7 @@ class Deputy < ApplicationRecord
                                             party_acronym: party_acronym,
                                             legislature_code: legislature_code
                                           )
+      self.save!
     end
   end
 
@@ -27,16 +28,16 @@ class Deputy < ApplicationRecord
         .max{ |deputy_expense_a, deputy_expense_b| deputy_expense_a.net_value <=> deputy_expense_b.net_value}
   end
 
+  def find_legislature(legislature_code:)
+    self.legislatures.find_by(legislature_code: legislature_code)
+  end
+
   private
   def upcase_deputy_data
     self.name = self.name.upcase
   end
 
   def has_legislature?(legislature_code:)
-    find_legislature(legislature_code: legislature_code).present?
-  end
-
-  def find_legislature(legislature_code:)
-    self.legislatures.find_by(legislature_code: legislature_code)
+    self.find_legislature(legislature_code: legislature_code).present?
   end
 end
