@@ -35,7 +35,7 @@ describe 'AddExpenseService' do
       deputy = create(:deputy)
       legislature = create(:legislature, deputy: deputy)
       expect{
-        AddExpenseService.new(
+        AddExpenseService.new.call(
           deputy: deputy, 
           legislature_code: legislature.legislature_code, 
           sub_quota_number: @expense_data["numSubCota"], 
@@ -60,7 +60,7 @@ describe 'AddExpenseService' do
           refund_value: @expense_data["vlrRestituicao"], 
           applicant_identifier: @expense_data["ideDocumento"],
           document_url: @expense_data["urlDocumento"]
-        ).call
+        )
       }.to change { FinancialManagement::DeputyExpense.count }.by(1)
     end
 
@@ -69,7 +69,7 @@ describe 'AddExpenseService' do
         deputy = create(:deputy)
         legislature = create(:legislature)
         expect{
-          AddExpenseService.new(
+          AddExpenseService.new.call(
             deputy: deputy, 
             legislature_code: legislature.legislature_code, 
             sub_quota_number: @expense_data["numSubCota"], 
@@ -94,7 +94,7 @@ describe 'AddExpenseService' do
             refund_value: @expense_data["vlrRestituicao"], 
             applicant_identifier: @expense_data["ideDocumento"],
             document_url: @expense_data["urlDocumento"]
-          ).call
+          )
         }.to raise_error(ArgumentError) 
       end
     end
