@@ -67,5 +67,23 @@ describe 'AnalyzeExpenseDataService' do
         ).call
       }.to change { FinancialManagement::DeputyExpense.count }.by(0)
     end
+
+    it 'Should create new legislature and add expense' do
+      AnalyzeExpenseDataService.new(
+        expense_data: @expense_data, 
+        create_deputy_service: CreateDeputyService.new, 
+        add_expense_service: AddExpenseService.new
+      ).call
+      @expense_data["141405"].first["codLegislatura"] = "57"
+      @expense_data["141405"].first["txtNumero"] = "20507"
+      @expense_data["141405"].first["urlDocumento"] = "https://www.camara.leg.br/cota-parlamentar/documentos/publ/1798/2021/7206972.pdf"
+      expect{
+        AnalyzeExpenseDataService.new(
+          expense_data: @expense_data, 
+          create_deputy_service: CreateDeputyService.new, 
+          add_expense_service: AddExpenseService.new
+        ).call
+      }.to change { FinancialManagement::DeputyExpense.count }.by(1).and change { Legislature.count }.by(1).and change { Deputy.count }.by(0)
+    end
   end
 end
