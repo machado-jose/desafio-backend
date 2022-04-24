@@ -25,6 +25,7 @@ describe 'FinancialManagement::DeputyExpense' do
       @reimbursement_number = Faker::Code.unique.npi 
       @refund_value = 200.to_d 
       @applicant_identifier = Faker::Code.unique.npi
+      @document_url = Faker::Internet.unique.url
     end
 
     it 'Should return valid deputy_expense object' do
@@ -50,7 +51,8 @@ describe 'FinancialManagement::DeputyExpense' do
         batch_number: @batch_number, 
         reimbursement_number: @reimbursement_number, 
         refund_value: @refund_value, 
-        applicant_identifier: @applicant_identifier
+        applicant_identifier: @applicant_identifier,
+        document_url: @document_url
       )
 
       expect(deputy_expense.valid?).to be_truthy
@@ -75,6 +77,7 @@ describe 'FinancialManagement::DeputyExpense' do
       expect(deputy_expense.reimbursement_number).to eq(@reimbursement_number)
       expect(deputy_expense.refund_value).to eq(@refund_value)
       expect(deputy_expense.applicant_identifier).to eq(@applicant_identifier)
+      expect(deputy_expense.document_url).to eq(@document_url)
     end
 
     it 'Should save deputy_expense on DB' do
@@ -106,7 +109,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -135,7 +139,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -164,7 +169,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -193,7 +199,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -222,7 +229,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -251,7 +259,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -280,7 +289,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -309,7 +319,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -338,7 +349,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -367,7 +379,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -396,7 +409,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -425,7 +439,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -454,7 +469,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -483,7 +499,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -512,7 +529,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -541,7 +559,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ArgumentError)
       end
@@ -570,7 +589,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -599,7 +619,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -628,7 +649,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -657,7 +679,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -686,7 +709,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -715,7 +739,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -744,7 +769,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -773,7 +799,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -802,7 +829,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -831,7 +859,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -860,7 +889,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -889,7 +919,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -918,7 +949,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end 
@@ -947,7 +979,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: '', 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -976,7 +1009,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: nil, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -1005,7 +1039,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: '', 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -1034,7 +1069,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: nil, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -1063,7 +1099,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: nil, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -1092,7 +1129,8 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: ''
+            applicant_identifier: '',
+            document_url: @document_url
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -1121,7 +1159,68 @@ describe 'FinancialManagement::DeputyExpense' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: nil
+            applicant_identifier: nil,
+            document_url: @document_url
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
+      end
+
+      it 'when passing empty document_url' do
+        expect{
+          FinancialManagement::DeputyExpense.new(
+            legislature: @legislature, 
+            sub_quota_number: @sub_quota_number, 
+            sub_quota_description: @sub_quota_description, 
+            sub_quota_specification_number: @sub_quota_specification_number, 
+            sub_quota_specification_description: @sub_quota_specification_description, 
+            provider: @provider, 
+            provider_registration_number: @provider_registration_number, 
+            document_number: @document_number,
+            document_type: @document_type, 
+            issuance_date: @issuance_date, 
+            document_value: @document_value, 
+            reverse_value: @reverse_value, 
+            net_value: @net_value, 
+            expense_month: @expense_month,
+            expense_year: @expense_year,
+            installment_number: @installment_number, 
+            passager: @passager, 
+            leg_trip: @leg_trip, 
+            batch_number: @batch_number, 
+            reimbursement_number: @reimbursement_number, 
+            refund_value: @refund_value, 
+            applicant_identifier: @applicant_identifier,
+            document_url: ''
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
+      end
+
+      it 'when passing nil document_url' do
+        expect{
+          FinancialManagement::DeputyExpense.new(
+            legislature: @legislature, 
+            sub_quota_number: @sub_quota_number, 
+            sub_quota_description: @sub_quota_description, 
+            sub_quota_specification_number: @sub_quota_specification_number, 
+            sub_quota_specification_description: @sub_quota_specification_description, 
+            provider: @provider, 
+            provider_registration_number: @provider_registration_number, 
+            document_number: @document_number,
+            document_type: @document_type, 
+            issuance_date: @issuance_date, 
+            document_value: @document_value, 
+            reverse_value: @reverse_value, 
+            net_value: @net_value, 
+            expense_month: @expense_month,
+            expense_year: @expense_year,
+            installment_number: @installment_number, 
+            passager: @passager, 
+            leg_trip: @leg_trip, 
+            batch_number: @batch_number, 
+            reimbursement_number: @reimbursement_number, 
+            refund_value: @refund_value, 
+            applicant_identifier: @applicant_identifier,
+            document_url: nil
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end

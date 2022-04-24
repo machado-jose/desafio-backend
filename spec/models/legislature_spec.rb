@@ -166,6 +166,7 @@ describe 'Legislature' do
       @reimbursement_number = Faker::Code.unique.npi 
       @refund_value = 200.to_d 
       @applicant_identifier = Faker::Code.unique.npi
+      @document_url = Faker::Internet.unique.url
     end
 
     it 'Should add new deputy expense' do
@@ -191,7 +192,8 @@ describe 'Legislature' do
           batch_number: @batch_number, 
           reimbursement_number: @reimbursement_number, 
           refund_value: @refund_value, 
-          applicant_identifier: @applicant_identifier
+          applicant_identifier: @applicant_identifier,
+          document_url: @document_url
         )
         @legislature.save!
       }.to change { FinancialManagement::DeputyExpense.count }.by(1)
@@ -219,7 +221,8 @@ describe 'Legislature' do
         batch_number: @batch_number, 
         reimbursement_number: @reimbursement_number, 
         refund_value: @refund_value, 
-        applicant_identifier: @applicant_identifier
+        applicant_identifier: @applicant_identifier,
+        document_url: @document_url
       )
       @legislature.save!
       expect{
@@ -244,7 +247,8 @@ describe 'Legislature' do
           batch_number: @batch_number, 
           reimbursement_number: @reimbursement_number, 
           refund_value: @refund_value, 
-          applicant_identifier: @applicant_identifier
+          applicant_identifier: @applicant_identifier,
+          document_url: @document_url
         )
         @legislature.save!
       }.to change { FinancialManagement::DeputyExpense.count }.by(0)
@@ -274,7 +278,8 @@ describe 'Legislature' do
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier
+            applicant_identifier: @applicant_identifier,
+            document_url: @document_url
           )
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end

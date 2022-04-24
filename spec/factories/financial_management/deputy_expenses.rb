@@ -22,5 +22,6 @@ FactoryBot.define do
     reimbursement_number { Faker::Code.unique.npi }
     refund_value { 200.to_d }
     applicant_identifier { Faker::Code.unique.npi }
+    document_url { Faker::Internet.unique.url }
   end
 end

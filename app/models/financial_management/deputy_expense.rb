@@ -24,6 +24,7 @@ class FinancialManagement::DeputyExpense < ApplicationRecord
   validates :reimbursement_number, presence: { strict: true }
   validates :refund_value, presence: { strict: true }
   validates :applicant_identifier, presence: { strict: true }
+  validates :document_url, presence: { strict: true }, uniqueness: { strict: true }
 
   enum document_type: {
     invoice: 0,

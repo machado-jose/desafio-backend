@@ -14,7 +14,7 @@ class Legislature < ApplicationRecord
   def add_deputy_expense(sub_quota_number:, sub_quota_description:, sub_quota_specification_number:, sub_quota_specification_description:, 
                          provider:, provider_registration_number:, document_number:, document_type:, issuance_date:, document_value:, 
                          reverse_value:, net_value:, expense_month:, expense_year:, installment_number:, passager:, leg_trip:, batch_number:, 
-                         reimbursement_number:, refund_value:, applicant_identifier:)
+                         reimbursement_number:, refund_value:, applicant_identifier:, document_url:)
     unless has_deputy_expense?(document_number: document_number)
       self.deputy_expenses << FinancialManagement::DeputyExpense.new(
                                                                       legislature: self, 
@@ -38,7 +38,8 @@ class Legislature < ApplicationRecord
                                                                       batch_number: batch_number, 
                                                                       reimbursement_number: reimbursement_number, 
                                                                       refund_value: refund_value, 
-                                                                      applicant_identifier: applicant_identifier
+                                                                      applicant_identifier: applicant_identifier,
+                                                                      document_url: document_url
                                                                     )
     end
   end
