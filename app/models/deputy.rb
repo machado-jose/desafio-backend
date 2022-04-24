@@ -18,8 +18,13 @@ class Deputy < ApplicationRecord
     end
   end
 
-  def biggest_expense_of_year(year:)
+  def all_expense_of_year(year:)
+    self.legislatures.map{ |legislature| legislature.all_deputy_expense_of_year(year: year) }.flatten
+  end
 
+  def biggest_expense_of_year(year:)
+    self.all_expense_of_year(year: year)
+        .max{ |deputy_expense_a, deputy_expense_b| deputy_expense_a.net_value <=> deputy_expense_b.net_value}
   end
 
   private
