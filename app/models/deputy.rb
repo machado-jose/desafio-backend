@@ -1,5 +1,5 @@
 class Deputy < ApplicationRecord
-  has_many :legislatures
+  has_many :legislatures, inverse_of: :deputy
   validates :name, presence: { strict: true }
   validates :ide_register, presence: { strict: true }, uniqueness: true
   validates :current_uf, presence: { strict: true }

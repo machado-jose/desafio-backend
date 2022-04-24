@@ -3,43 +3,17 @@ require './app/services/infrastructure/validator.rb'
 class Legislature < ApplicationRecord
   belongs_to :deputy
   has_many :deputy_expenses, class_name: 'FinancialManagement::DeputyExpense'
-  
-  def custom_initialize(deputy:, legislature_number:, uf:, party_acronym:, legislature_code:)
-    change_deputy(deputy: deputy)
-    change_legislature_number(legislature_number: legislature_number)
-    change_uf(uf: uf)
-    change_party_acronym(party_acronym: party_acronym)
-    change_legislature_code(legislature_code: legislature_code)
-  end
+  validates :deputy, presence: { strict: true }
+  validates :legislature_number, presence: { strict: true }
+  validates :uf, presence: { strict: true }
+  validates :party_acronym, presence: { strict: true }
+  validates :legislature_code, presence: { strict: true }
+  validates_associated :deputy_expenses, presence: { strict: true }
+  after_validation :upcase_legislature_data
 
   private
-  def change_deputy(deputy:)
-    Validator.assert_object_class_type deputy, Deputy
-    self.deputy = deputy
-    self
-  end
-
-  def change_legislature_number(legislature_number:)
-    Validator.assert_empty_string legislature_number
-    self.legislature_number = legislature_number
-    self
-  end
-
-  def change_uf(uf:)
-    Validator.assert_empty_string uf
-    self.uf = uf.upcase
-    self
-  end
-
-  def change_party_acronym(party_acronym:)
-    Validator.assert_empty_string party_acronym
-    self.party_acronym = party_acronym.upcase
-    self
-  end
-
-  def change_legislature_code(legislature_code:)
-    Validator.assert_empty_string legislature_code
-    self.legislature_code = legislature_code
-    self
+  def upcase_legislature_data
+    self.party_acronym = self.party_acronym.upcase
+    self.uf = self.uf.upcase
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Legislature' do
-  context '#custom_initialize' do
+  context 'initialize' do
     before :each do
       @deputy = create(:deputy) 
       @legislature_number = "9999" 
@@ -11,7 +11,7 @@ describe 'Legislature' do
     end
 
     it 'Should return valid legislature object' do
-      legislature = Legislature.new.custom_initialize(
+      legislature = Legislature.new(
         deputy: @deputy,
         legislature_number: @legislature_number,
         uf: @uf,
@@ -19,6 +19,7 @@ describe 'Legislature' do
         legislature_code: @legislature_code
       )
 
+      expect(legislature.valid?).to be_truthy
       expect(legislature.deputy).to eq(@deputy)
       expect(legislature.legislature_number).to eq(@legislature_number)
       expect(legislature.uf).to eq(@uf.upcase)
@@ -33,110 +34,110 @@ describe 'Legislature' do
     context 'Should raise an error' do
       it 'when passing nil deputy' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: nil,
             legislature_number: @legislature_number,
             uf: @uf,
             party_acronym: @party_acronym,
             legislature_code: @legislature_code
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty legislature_number' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: @deputy,
             legislature_number: '',
             uf: @uf,
             party_acronym: @party_acronym,
             legislature_code: @legislature_code
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil legislature_number' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: @deputy,
             legislature_number: nil,
             uf: @uf,
             party_acronym: @party_acronym,
             legislature_code: @legislature_code
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty uf' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: @deputy,
             legislature_number: @legislature_number,
             uf: '',
             party_acronym: @party_acronym,
             legislature_code: @legislature_code
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil uf' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: @deputy,
             legislature_number: @legislature_number,
             uf: nil,
             party_acronym: @party_acronym,
             legislature_code: @legislature_code
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty party_acronym' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: @deputy,
             legislature_number: @legislature_number,
             uf: @uf,
             party_acronym: '',
             legislature_code: @legislature_code
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil party_acronym' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: @deputy,
             legislature_number: @legislature_number,
             uf: @uf,
             party_acronym: nil,
             legislature_code: @legislature_code
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty party_acronym' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: @deputy,
             legislature_number: @legislature_number,
             uf: @uf,
             party_acronym: @party_acronym,
             legislature_code: ''
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil party_acronym' do
         expect{
-          Legislature.new.custom_initialize(
+          Legislature.new(
             deputy: @deputy,
             legislature_number: @legislature_number,
             uf: @uf,
             party_acronym: @party_acronym,
             legislature_code: nil
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
     end
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Deputy' do
-  context '' do
+  context 'initialize' do
     before :each do
       @name = Faker::Name.unique.name 
       @ide_register = "99999" 
