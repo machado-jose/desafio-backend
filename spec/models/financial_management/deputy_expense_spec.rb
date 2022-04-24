@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 describe 'FinancialManagement::DeputyExpense' do
-  context '#call' do
+  context '#new' do
     before :each do
       @legislature = create(:legislature) 
-      @sub_quota_number = Faker::Code.npi 
+      @sub_quota_number = Faker::Code.unique.npi 
       @sub_quota_description = "any_sub_quota_description" 
-      @sub_quota_specification_number = Faker::Code.npi 
+      @sub_quota_specification_number = Faker::Code.unique.npi 
       @sub_quota_specification_description = "any_sub_quota_specification_description" 
       @provider = Faker::Name.name 
       @provider_registration_number = "999.999.999-99" 
-      @document_number = Faker::Code.npi 
+      @document_number = Faker::Code.unique.npi 
       @document_type = 0
       @issuance_date = DateTime.now - 3.months 
       @document_value = 300.to_d 
@@ -20,14 +20,14 @@ describe 'FinancialManagement::DeputyExpense' do
       @installment_number = 1 
       @passager = Faker::Name.name 
       @leg_trip = "any_leg_trip" 
-      @batch_number = Faker::Code.npi 
-      @reimbursement_number = Faker::Code.npi 
+      @batch_number = Faker::Code.unique.npi 
+      @reimbursement_number = Faker::Code.unique.npi 
       @refund_value = 200.to_d 
-      @applicant_identifier = Faker::Code.npi
+      @applicant_identifier = Faker::Code.unique.npi
     end
 
     it 'Should return valid deputy_expense object' do
-      deputy_expense = FinancialManagement::DeputyExpense.new.custom_initialize(
+      deputy_expense = FinancialManagement::DeputyExpense.new(
         legislature: @legislature, 
         sub_quota_number: @sub_quota_number, 
         sub_quota_description: @sub_quota_description, 
@@ -51,6 +51,7 @@ describe 'FinancialManagement::DeputyExpense' do
         applicant_identifier: @applicant_identifier
       )
 
+      expect(deputy_expense.valid?).to be_truthy
       expect(deputy_expense.legislature).to eq(@legislature)
       expect(deputy_expense.sub_quota_number).to eq(@sub_quota_number)
       expect(deputy_expense.sub_quota_description).to eq(@sub_quota_description)
@@ -80,7 +81,7 @@ describe 'FinancialManagement::DeputyExpense' do
     context 'Should raise an error' do
       it 'when passing nil legislature' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: nil, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -102,13 +103,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty sub_quota_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: '', 
             sub_quota_description: @sub_quota_description, 
@@ -130,13 +131,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil sub_quota_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: nil, 
             sub_quota_description: @sub_quota_description, 
@@ -158,13 +159,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty sub_quota_description' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: '', 
@@ -186,13 +187,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil sub_quota_description' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: nil, 
@@ -214,13 +215,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty sub_quota_specification_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -242,13 +243,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil sub_quota_specification_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -270,13 +271,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty sub_quota_specification_description' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -298,13 +299,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil sub_quota_specification_description' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -326,13 +327,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty provider' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -354,13 +355,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil provider' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -382,13 +383,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty provider_registration_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -410,13 +411,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil provider_registration_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -438,13 +439,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty document_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -466,13 +467,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil document_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -494,13 +495,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing empty document_type' do
+      it 'when passing invalid document_type' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -509,7 +510,7 @@ describe 'FinancialManagement::DeputyExpense' do
             provider: @provider, 
             provider_registration_number: @provider_registration_number, 
             document_number: @document_number,
-            document_type: '', 
+            document_type: 3, 
             issuance_date: @issuance_date, 
             document_value: @document_value, 
             reverse_value: @reverse_value, 
@@ -522,13 +523,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
+          ).valid?
         }.to raise_error(ArgumentError)
       end
 
       it 'when passing nil document_type' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -550,13 +551,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty issuance_date' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -578,13 +579,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil issuance_date' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -606,13 +607,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing float document_value' do
+      it 'when passing nil document_value' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -623,7 +624,7 @@ describe 'FinancialManagement::DeputyExpense' do
             document_number: @document_number,
             document_type: @document_type, 
             issuance_date: @issuance_date, 
-            document_value: 300.0, 
+            document_value: nil, 
             reverse_value: @reverse_value, 
             net_value: @net_value, 
             competence: @competence,
@@ -634,13 +635,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing float reverse_value' do
+      it 'when passing nil reverse_value' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -652,7 +653,7 @@ describe 'FinancialManagement::DeputyExpense' do
             document_type: @document_type, 
             issuance_date: @issuance_date, 
             document_value: @document_value, 
-            reverse_value: 300.0, 
+            reverse_value: nil, 
             net_value: @net_value, 
             competence: @competence,
             installment_number: @installment_number, 
@@ -662,13 +663,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing float net_value' do
+      it 'when passing nil net_value' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -681,7 +682,7 @@ describe 'FinancialManagement::DeputyExpense' do
             issuance_date: @issuance_date, 
             document_value: @document_value, 
             reverse_value: @reverse_value, 
-            net_value: 300.0, 
+            net_value: nil, 
             competence: @competence,
             installment_number: @installment_number, 
             passager: @passager, 
@@ -690,13 +691,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty competence' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -718,13 +719,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil competence' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -746,13 +747,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil installment_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -774,13 +775,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty passager' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -802,13 +803,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty leg_trip' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -830,13 +831,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end 
 
       it 'when passing empty batch_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -858,13 +859,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil batch_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -886,13 +887,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty reimbursement_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -914,13 +915,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: '', 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil reimbursement_number' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -942,13 +943,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: nil, 
             refund_value: @refund_value, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing float refund_value' do
+      it 'when passing nil refund_value' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -968,15 +969,15 @@ describe 'FinancialManagement::DeputyExpense' do
             leg_trip: @leg_trip, 
             batch_number: @batch_number, 
             reimbursement_number: @reimbursement_number, 
-            refund_value: 300.0, 
+            refund_value: nil, 
             applicant_identifier: @applicant_identifier
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing empty applicant_identifier' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -998,13 +999,13 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: ''
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
       it 'when passing nil applicant_identifier' do
         expect{
-          Legislature.new.custom_initialize(
+          FinancialManagement::DeputyExpense.new(
             legislature: @legislature, 
             sub_quota_number: @sub_quota_number, 
             sub_quota_description: @sub_quota_description, 
@@ -1026,8 +1027,8 @@ describe 'FinancialManagement::DeputyExpense' do
             reimbursement_number: @reimbursement_number, 
             refund_value: @refund_value, 
             applicant_identifier: nil
-          )
-        }.to raise_error(ArgumentError)
+          ).valid?
+        }.to raise_error(ActiveModel::StrictValidationFailed)
       end
     end
   end

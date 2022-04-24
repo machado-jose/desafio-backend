@@ -4,10 +4,10 @@ describe 'Legislature' do
   context 'initialize' do
     before :each do
       @deputy = create(:deputy) 
-      @legislature_number = "9999" 
+      @legislature_number = Faker::Code.unique.npi 
       @uf = "rj" 
       @party_acronym = "qpb" 
-      @legislature_code = "8888" 
+      @legislature_code = Faker::Code.unique.npi
     end
 
     it 'Should return valid legislature object' do

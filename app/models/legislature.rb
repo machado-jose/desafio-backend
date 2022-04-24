@@ -2,7 +2,7 @@ require './app/services/infrastructure/validator.rb'
 
 class Legislature < ApplicationRecord
   belongs_to :deputy
-  has_many :deputy_expenses, class_name: 'FinancialManagement::DeputyExpense'
+  has_many :deputy_expenses, class_name: 'FinancialManagement::DeputyExpense', inverse_of: :legislature
   validates :deputy, presence: { strict: true }
   validates :legislature_number, presence: { strict: true }
   validates :uf, presence: { strict: true }
