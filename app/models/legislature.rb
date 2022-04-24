@@ -43,6 +43,11 @@ class Legislature < ApplicationRecord
     end
   end
 
+  def all_deputy_expense_of_year(year:)
+    Validator.assert_empty_string year
+    self.deputy_expenses.where(expense_year: year)
+  end
+
   private
   def upcase_legislature_data
     self.party_acronym = self.party_acronym.upcase
