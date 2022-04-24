@@ -2,7 +2,7 @@ class Deputy < ApplicationRecord
   has_many :legislatures, inverse_of: :deputy
   validates :name, presence: { strict: true }
   validates :ide_register, presence: { strict: true }, uniqueness: { strict: true }
-  validates :current_uf, presence: { strict: true }
+  validates :deputy_wallet_number, presence: { strict: true }, uniqueness: { strict: true }
   validates_associated :legislatures, presence: { strict: true }
   after_validation :upcase_deputy_data
 
@@ -30,7 +30,6 @@ class Deputy < ApplicationRecord
   private
   def upcase_deputy_data
     self.name = self.name.upcase
-    self.current_uf = self.current_uf.upcase
   end
 
   def has_legislature?(legislature_code:)

@@ -3,7 +3,7 @@ class CreateDeputies < ActiveRecord::Migration[6.0]
     create_table :deputies do |t|
       t.string :name
       t.string :ide_register
-      t.string :current_uf
+      t.string :deputy_wallet_number
 
       t.timestamps
     end

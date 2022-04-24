@@ -5,20 +5,20 @@ describe 'Deputy' do
     before :each do
       @name = Faker::Name.unique.name 
       @ide_register = Faker::Code.unique.npi
-      @current_uf = "rj" 
+      @deputy_wallet_number = Faker::Code.unique.npi 
     end
 
     it 'Should return valid deputy object' do
       deputy = Deputy.new(
         name: @name,
         ide_register: @ide_register,
-        current_uf: @current_uf
+        deputy_wallet_number: @deputy_wallet_number
       )
 
       expect(deputy.valid?).to be_truthy
       expect(deputy.name).to eq(@name.upcase)
       expect(deputy.ide_register).to eq(@ide_register)
-      expect(deputy.current_uf).to eq(@current_uf.upcase)
+      expect(deputy.deputy_wallet_number).to eq(@deputy_wallet_number)
     end
 
     it 'Should save deputy on DB' do
@@ -31,7 +31,7 @@ describe 'Deputy' do
           Deputy.new(
             name: '',
             ide_register: @ide_register,
-            current_uf: @current_uf
+            deputy_wallet_number: @deputy_wallet_number
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -41,7 +41,7 @@ describe 'Deputy' do
           Deputy.new(
             name: nil,
             ide_register: @ide_register,
-            current_uf: @current_uf
+            deputy_wallet_number: @deputy_wallet_number
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -51,7 +51,7 @@ describe 'Deputy' do
           Deputy.new(
             name: @name,
             ide_register: '',
-            current_uf: @current_uf
+            deputy_wallet_number: @deputy_wallet_number
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
@@ -61,27 +61,27 @@ describe 'Deputy' do
           Deputy.new(
             name: @name,
             ide_register: nil,
-            current_uf: @current_uf
+            deputy_wallet_number: @deputy_wallet_number
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing empty current_uf' do
+      it 'when passing empty deputy_wallet_number' do
         expect{
           Deputy.new(
             name: @name,
             ide_register: @ide_register,
-            current_uf: ''
+            deputy_wallet_number: ''
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing nil current_uf' do
+      it 'when passing nil deputy_wallet_number' do
         expect{
           Deputy.new(
             name: @name,
             ide_register: @ide_register,
-            current_uf: nil
+            deputy_wallet_number: nil
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end

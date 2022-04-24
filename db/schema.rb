@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2022_04_23_223113) do
   create_table "deputies", force: :cascade do |t|
     t.string "name"
     t.string "ide_register"
-    t.string "current_uf"
+    t.string "deputy_wallet_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
