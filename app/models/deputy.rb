@@ -18,6 +18,10 @@ class Deputy < ApplicationRecord
     end
   end
 
+  def biggest_expense_of_year(year:)
+
+  end
+
   private
   def upcase_deputy_data
     self.name = self.name.upcase

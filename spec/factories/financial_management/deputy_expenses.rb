@@ -13,7 +13,8 @@ FactoryBot.define do
     document_value { 300.to_d }
     reverse_value { 100.to_d }
     net_value { 200.to_d }
-    competence { (DateTime.now - 3.months).strftime("%Y-%m") }
+    expense_month { (DateTime.now - 3.months).strftime("%m") }
+    expense_year { (DateTime.now - 3.months).strftime("%Y") }
     installment_number { 1 }
     passager { Faker::Name.name }
     leg_trip { "any_leg_trip" }

@@ -15,7 +15,8 @@ class FinancialManagement::DeputyExpense < ApplicationRecord
   validates :document_value, presence: { strict: true }
   validates :reverse_value, presence: { strict: true }
   validates :net_value, presence: { strict: true }
-  validates :competence, presence: { strict: true }
+  validates :expense_month, presence: { strict: true }
+  validates :expense_year, presence: { strict: true }
   validates :installment_number, presence: { strict: true }
   validates :passager, presence: { strict: true }
   validates :leg_trip, presence: { strict: true }

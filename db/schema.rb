@@ -34,7 +34,8 @@ ActiveRecord::Schema.define(version: 2022_04_23_223113) do
     t.decimal "document_value", precision: 8, scale: 2
     t.decimal "reverse_value", precision: 8, scale: 2
     t.decimal "net_value", precision: 8, scale: 2
-    t.string "competence"
+    t.string "expense_month"
+    t.string "expense_year"
     t.integer "installment_number"
     t.string "passager"
     t.string "leg_trip"
