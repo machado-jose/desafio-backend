@@ -1,0 +1,2 @@
+class DeputyController < ApplicationController
+end
