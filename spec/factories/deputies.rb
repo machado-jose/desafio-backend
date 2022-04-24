@@ -3,13 +3,5 @@ FactoryBot.define do
     name { Faker::Name.unique.name }
     ide_register { "99999" }
     current_uf { "rj" }
-
-    initialize_with {
-      new.custom_initialize(
-        name: name,
-        ide_register: ide_register,
-        current_uf: current_uf
-      )
-    }
   end
 end
