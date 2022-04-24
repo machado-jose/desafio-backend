@@ -141,4 +141,89 @@ describe 'Deputy' do
       end
     end
   end
+
+  context '#all_expense_of_year' do
+    before :each do
+      @deputy = create(:deputy)
+      @legislature = create(:legislature, deputy: @deputy)
+    end
+
+    it 'Should return all deputy expense of specific year' do
+      deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      deputy_expense_3 = create(:deputy_expense, legislature: @legislature, expense_year: '2020')
+      @deputy.reload
+      all_deputy_expenses = @deputy.all_expense_of_year(year: '2021')
+      expect(all_deputy_expenses.count).to eq(2)
+      expect(all_deputy_expenses).to include(deputy_expense_1)
+      expect(all_deputy_expenses).to include(deputy_expense_2)
+    end
+
+    it 'Should return empty array' do
+      deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      @deputy.reload
+      expect(@deputy.all_expense_of_year(year: '2020').empty?).to be_truthy
+    end
+
+    context 'Should raise an error' do
+      before :each do
+        deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+        @deputy.reload
+      end
+
+      it 'if passing empty year' do
+        expect{
+          @deputy.all_expense_of_year(year: '')
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'if passing integer year' do
+        expect{
+          @deputy.all_expense_of_year(year: 2021)
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  context '#biggest_expense_of_year' do
+    before :each do
+      @deputy = create(:deputy)
+      @legislature = create(:legislature, deputy: @deputy)
+    end
+
+    it 'Should return biggest deputy expense of year' do
+      deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021', net_value: 200.0)
+      deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021', net_value: 600.0)
+      deputy_expense_3 = create(:deputy_expense, legislature: @legislature, expense_year: '2021', net_value: 400.0)
+      deputy_expense_4 = create(:deputy_expense, legislature: @legislature, expense_year: '2020', net_value: 1000.0)
+      @deputy.reload
+      expect(@deputy.biggest_expense_of_year(year: '2021')).to eq(deputy_expense_2)
+    end
+
+    it 'Should return nil' do
+      deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021', net_value: 200.0)
+      deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021', net_value: 600.0)
+      expect(@deputy.biggest_expense_of_year(year: '2021').nil?).to be_truthy
+    end
+
+    context 'Should raise an error' do
+      before :each do
+        deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+        @deputy.reload
+      end
+
+      it 'if passing empty year' do
+        expect{
+          @deputy.all_expense_of_year(year: '')
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'if passing integer year' do
+        expect{
+          @deputy.all_expense_of_year(year: 2021)
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end
