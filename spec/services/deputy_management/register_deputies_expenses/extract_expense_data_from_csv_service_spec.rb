@@ -1,5 +1,5 @@
 require 'rails_helper'
-require './app/services/register_deputies_expenses/extract_expense_data_from_csv_service.rb'
+require './app/services/deputy_management/register_deputies_expenses/extract_expense_data_from_csv_service.rb'
 
 describe 'ExtractExpenseDataFromCsvService' do  
   context '#call' do
