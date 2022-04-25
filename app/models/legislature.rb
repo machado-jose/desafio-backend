@@ -7,7 +7,7 @@ class Legislature < ApplicationRecord
   validates :legislature_number, presence: { strict: true }
   validates :uf, presence: { strict: true }
   validates :party_acronym, presence: { strict: true }
-  validates :legislature_code, presence: { strict: true }, uniqueness: { strict: true }
+  validates :legislature_code, presence: { strict: true }, uniqueness: { strict: true, scope: :deputy }
   validates_associated :deputy_expenses, presence: { strict: true }
   after_validation :upcase_legislature_data
 
