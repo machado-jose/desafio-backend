@@ -5,7 +5,7 @@ class ExtractExpenseDataFromCsvService
   def initialize(file:, uf: nil)
     Validator.assert_empty_string uf unless uf.nil?
 
-    @file = file
+    @file = open(file)
     @uf = uf
   end
 
