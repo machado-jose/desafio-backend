@@ -20,5 +20,14 @@ RSpec.describe DeputyController, type: :controller do
         post :submit_csv, params: {file: @file}
       }.to change { FinancialManagement::DeputyExpense.count }.by(2).and change { Legislature.count }.by(2).and change { Deputy.count }.by(2) 
     end
+
+    it 'Should back to transaction when raise an error' do
+      add_expense_service = instance_double(AddExpenseService)
+      expect(AddExpenseService).to receive(:new).and_return(add_expense_service)
+      expect(add_expense_service).to receive(:call).and_raise(ActiveModel::StrictValidationFailed)
+      expect {
+        post :submit_csv, params: {file: @file}
+      }.to change { Deputy.count }.by(0)
+    end
   end
 end
