@@ -6,10 +6,12 @@ require './app/services/deputy_management/register_deputies_expenses/add_expense
 class DeputyController < ApplicationController
   def submit_csv
     expense_data = ExtractExpenseDataFromCsvService.new(file: params[:file], uf: params[:uf]).call
-    AnalyzeExpenseDataService.new(
+    ActiveRecord::Base.transaction do
+      AnalyzeExpenseDataService.new(
                                     expense_data: expense_data, 
                                     create_deputy_service: CreateDeputyService.new, 
                                     add_expense_service: AddExpenseService.new
                                   ).call
+    end
   end
 end
