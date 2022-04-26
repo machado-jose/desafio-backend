@@ -60,6 +60,7 @@ class Legislature < ApplicationRecord
   end
 
   def find_deputy_expense(document_number:)
-    self.deputy_expenses.find_by(document_number: document_number)
+    self.deputy_expenses.select{ |deputy_expense| deputy_expense.document_number.eql? document_number }
+                        .first
   end
 end
