@@ -1,16 +1,15 @@
-require 'csv'
 require './app/services/infrastructure/validator.rb'
 
 class ExtractExpenseDataFromCsvService
-  def initialize(file:, uf: nil)
+  def initialize(parse_csv_file_service:, uf: nil)
     Validator.assert_empty_string uf unless uf.nil?
 
-    @file = open(file)
+    @parse_csv_file_service = parse_csv_file_service
     @uf = uf
   end
 
   def call
-    csv = CSV.parse(@file, headers: true)
+    csv = @parse_csv_file_service.call
     headers = csv.headers.select{ |header| !header.eql? 'ideCadastro' }
     csv = csv.select{ |row| row["sgUF"].upcase.eql? @uf } if @uf.present?
     response = {}

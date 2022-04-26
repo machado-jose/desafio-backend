@@ -1,14 +1,16 @@
 require 'rails_helper'
 require './app/services/deputy_management/register_deputies_expenses/extract_expense_data_from_csv_service.rb'
+require './app/services/infrastructure/parse_csv_file_service.rb'
 
 describe 'ExtractExpenseDataFromCsvService' do  
   context '#call' do
     before :each do
-      @file = fixture_file_upload('services/register_deputies_expenses/Ano-2021.csv', 'text/csv')
+      file = fixture_file_upload('services/register_deputies_expenses/Ano-2021.csv', 'text/csv')
+      @parse_csv_file_service = ParseCsvFileService.new(file: file)
     end
 
     it 'Should return hash with deputies expenses data filter by uf' do
-      response = ExtractExpenseDataFromCsvService.new(file: @file, uf: "RJ").call
+      response = ExtractExpenseDataFromCsvService.new(parse_csv_file_service: @parse_csv_file_service, uf: "RJ").call
       expect(response["160511"].first["txNomeParlamentar"]).to eq("Alessandro Molon")
       expect(response["160511"].first["cpf"]).to eq("1416576770")
       expect(response["160511"].first["nuCarteiraParlamentar"]).to eq("287")
@@ -42,14 +44,14 @@ describe 'ExtractExpenseDataFromCsvService' do
     end
 
     it 'Should return expenses data list of one deputy' do
-      response = ExtractExpenseDataFromCsvService.new(file: @file, uf: "SC").call
+      response = ExtractExpenseDataFromCsvService.new(parse_csv_file_service: @parse_csv_file_service, uf: "SC").call
       expect(response["141405"].count).to eq(2)
       expect(response["141405"].first["vlrLiquido"]).to eq("3500")
       expect(response["141405"].second["vlrLiquido"]).to eq("3600")
     end
 
     it 'Should return all expenses data on csv file' do
-      response = ExtractExpenseDataFromCsvService.new(file: @file).call
+      response = ExtractExpenseDataFromCsvService.new(parse_csv_file_service: @parse_csv_file_service).call
       expect(response.keys.count).to eq(2)
       expect(response["141405"].count).to eq(2)
       expect(response["160511"].count).to eq(1)
@@ -58,13 +60,13 @@ describe 'ExtractExpenseDataFromCsvService' do
     context 'Should must raise an error' do
       it 'when uf is empty' do
         expect{
-          ExtractExpenseDataFromCsvService.new(file: @file, uf: '').call
+          ExtractExpenseDataFromCsvService.new(parse_csv_file_service: @parse_csv_file_service, uf: '').call
         }.to raise_error(ArgumentError)
       end
 
       it 'when uf is not String' do
         expect{
-          ExtractExpenseDataFromCsvService.new(file: @file, uf: 30).call
+          ExtractExpenseDataFromCsvService.new(parse_csv_file_service: @parse_csv_file_service, uf: 30).call
         }.to raise_error(ArgumentError)
       end
     end
