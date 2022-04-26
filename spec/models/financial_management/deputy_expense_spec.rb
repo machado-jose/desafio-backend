@@ -486,7 +486,7 @@ describe 'FinancialManagement::DeputyExpense' do
             provider: @provider, 
             provider_registration_number: @provider_registration_number, 
             document_number: @document_number,
-            document_type: 3, 
+            document_type: 9, 
             issuance_date: @issuance_date, 
             document_value: @document_value, 
             reverse_value: @reverse_value, 
@@ -951,66 +951,6 @@ describe 'FinancialManagement::DeputyExpense' do
             refund_value: @refund_value, 
             applicant_identifier: nil,
             document_url: @document_url
-          ).valid?
-        }.to raise_error(ActiveModel::StrictValidationFailed)
-      end
-
-      it 'when passing empty document_url' do
-        expect{
-          FinancialManagement::DeputyExpense.new(
-            legislature: @legislature, 
-            sub_quota_number: @sub_quota_number, 
-            sub_quota_description: @sub_quota_description, 
-            sub_quota_specification_number: @sub_quota_specification_number, 
-            sub_quota_specification_description: @sub_quota_specification_description, 
-            provider: @provider, 
-            provider_registration_number: @provider_registration_number, 
-            document_number: @document_number,
-            document_type: @document_type, 
-            issuance_date: @issuance_date, 
-            document_value: @document_value, 
-            reverse_value: @reverse_value, 
-            net_value: @net_value, 
-            expense_month: @expense_month,
-            expense_year: @expense_year,
-            installment_number: @installment_number, 
-            passager: @passager, 
-            leg_trip: @leg_trip, 
-            batch_number: @batch_number, 
-            reimbursement_number: @reimbursement_number, 
-            refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier,
-            document_url: ''
-          ).valid?
-        }.to raise_error(ActiveModel::StrictValidationFailed)
-      end
-
-      it 'when passing nil document_url' do
-        expect{
-          FinancialManagement::DeputyExpense.new(
-            legislature: @legislature, 
-            sub_quota_number: @sub_quota_number, 
-            sub_quota_description: @sub_quota_description, 
-            sub_quota_specification_number: @sub_quota_specification_number, 
-            sub_quota_specification_description: @sub_quota_specification_description, 
-            provider: @provider, 
-            provider_registration_number: @provider_registration_number, 
-            document_number: @document_number,
-            document_type: @document_type, 
-            issuance_date: @issuance_date, 
-            document_value: @document_value, 
-            reverse_value: @reverse_value, 
-            net_value: @net_value, 
-            expense_month: @expense_month,
-            expense_year: @expense_year,
-            installment_number: @installment_number, 
-            passager: @passager, 
-            leg_trip: @leg_trip, 
-            batch_number: @batch_number, 
-            reimbursement_number: @reimbursement_number, 
-            refund_value: @refund_value, 
-            applicant_identifier: @applicant_identifier,
-            document_url: nil
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end

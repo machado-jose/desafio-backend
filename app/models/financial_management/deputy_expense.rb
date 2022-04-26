@@ -19,12 +19,13 @@ class FinancialManagement::DeputyExpense < ApplicationRecord
   validates :installment_number, presence: { strict: true }
   validates :batch_number, presence: { strict: true }
   validates :applicant_identifier, presence: { strict: true }
-  validates :document_url, presence: { strict: true }, uniqueness: { strict: true }
+  validates :document_url, allow_nil: true, allow_blank: true, uniqueness: { strict: true }
 
   enum document_type: {
     invoice: 0,
     receipt: 1,
-    expense_abroad: 2
+    expense_abroad: 2,
+    not_specified: 3
   }
   
 end
