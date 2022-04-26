@@ -24,8 +24,10 @@ class ParseCsvFileService
   private
   def treat_csv_file
     file_data = File.open(@file).read
-    file_data.gsub!(/[;\"]/, {
+    file_data.gsub!(/^\xEF\xBB\xBF/, '')
+    file_data.gsub!(/[;\",]/, {
       "\"" => '',
+      "," => '',
       ";" => ','
     })
     @file = file_data
