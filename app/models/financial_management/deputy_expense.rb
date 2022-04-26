@@ -8,7 +8,7 @@ class FinancialManagement::DeputyExpense < ApplicationRecord
   validates :sub_quota_specification_number, presence: { strict: true }
   validates :provider, presence: { strict: true }
   validates :provider_registration_number, presence: { strict: true }
-  validates :document_number, presence: { strict: true }, uniqueness: { strict: true }
+  validates :document_number, presence: { strict: true }
   validates :document_type, presence: { strict: true }
   validates :issuance_date, presence: { strict: true }
   validates :document_value, presence: { strict: true }
@@ -19,7 +19,6 @@ class FinancialManagement::DeputyExpense < ApplicationRecord
   validates :installment_number, presence: { strict: true }
   validates :batch_number, presence: { strict: true }
   validates :applicant_identifier, presence: { strict: true }
-  validates :document_url, allow_nil: true, allow_blank: true, uniqueness: { strict: true }
 
   enum document_type: {
     invoice: 0,
