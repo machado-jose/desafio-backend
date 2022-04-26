@@ -13,7 +13,7 @@ class AnalyzeExpenseDataService
           deputies_by_ide_register[ideCadastro].any?{ |deputy| deputy.ide_register.eql? ideCadastro }
           
           deputy = deputies_by_ide_register[ideCadastro].first
-        else  
+        else
           deputy = @create_deputy_service.call(
             name: deputy_expense_list.first["txNomeParlamentar"],
             ide_register: ideCadastro,
@@ -37,7 +37,7 @@ class AnalyzeExpenseDataService
             provider: deputy_expense_data["txtFornecedor"], 
             provider_registration_number: deputy_expense_data["txtCNPJCPF"], 
             document_number: deputy_expense_data["txtNumero"], 
-            document_type: deputy_expense_data["indTipoDocumento"], 
+            document_type: analyze_document_type(document_type: deputy_expense_data["indTipoDocumento"].to_i ), 
             issuance_date: deputy_expense_data["datEmissao"], 
             document_value: deputy_expense_data["vlrDocumento"], 
             reverse_value: deputy_expense_data["vlrGlosa"], 
@@ -58,6 +58,18 @@ class AnalyzeExpenseDataService
       end
     rescue => e 
       raise ActiveRecord::Rollback
+    end
+  end
+
+  private
+  def analyze_document_type(document_type:)
+    # Some lines have document type equal to 4, which is not explained in the documentation
+    unless FinancialManagement::DeputyExpense.document_types
+                                                .values
+                                                .any?{ |doc_type_id| doc_type_id.eql? document_type }
+      return 3
+    else  
+      return document_type
     end
   end
 end
