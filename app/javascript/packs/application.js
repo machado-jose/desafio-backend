@@ -15,3 +15,16 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+global.$ = jQuery
+const images = require.context('../images', true)
+
+$(window).on('load', function() {
+  var preloaderFadeOutTime = 500
+  function hidePreloader() {
+    var preloader = $('.spinner-wrapper')
+    setTimeout(function() {
+      preloader.fadeOut(preloaderFadeOutTime)
+    }, 500)
+  }
+  hidePreloader()
+})
