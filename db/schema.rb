@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_24_204227) do
+ActiveRecord::Schema.define(version: 2022_04_26_224924) do
 
   create_table "deputies", force: :cascade do |t|
     t.string "name"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2022_04_24_204227) do
     t.integer "deputy_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["deputy_id", "legislature_code"], name: "index_legislatures_on_deputy_id_and_legislature_code", unique: true
     t.index ["deputy_id"], name: "index_legislatures_on_deputy_id"
   end
 

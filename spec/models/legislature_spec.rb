@@ -25,6 +25,9 @@ describe 'Legislature' do
       expect(legislature.uf).to eq(@uf.upcase)
       expect(legislature.party_acronym).to eq(@party_acronym.upcase)
       expect(legislature.legislature_code).to eq(@legislature_code)
+      expect{
+        legislature.save!
+      }.to change { Legislature.count }.by(1)
     end
 
     it 'Should save legislature on DB' do
@@ -116,7 +119,7 @@ describe 'Legislature' do
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing empty party_acronym' do
+      it 'when passing empty legislature_code' do
         expect{
           Legislature.new(
             deputy: @deputy,
@@ -128,7 +131,7 @@ describe 'Legislature' do
         }.to raise_error(ActiveModel::StrictValidationFailed)
       end
 
-      it 'when passing nil party_acronym' do
+      it 'when passing nil legislature_code' do
         expect{
           Legislature.new(
             deputy: @deputy,
@@ -138,6 +141,27 @@ describe 'Legislature' do
             legislature_code: nil
           ).valid?
         }.to raise_error(ActiveModel::StrictValidationFailed)
+      end
+
+      it 'when duplicate legislature to one deputy' do
+        legislature = Legislature.new(
+                                        deputy: @deputy,
+                                        legislature_number: @legislature_number,
+                                        uf: @uf,
+                                        party_acronym: @party_acronym,
+                                        legislature_code: @legislature_code
+                                      )
+        legislature.save!
+        legislature_2 = Legislature.new(
+                                        deputy: @deputy,
+                                        legislature_number: @legislature_number,
+                                        uf: @uf,
+                                        party_acronym: @party_acronym,
+                                        legislature_code: @legislature_code
+                                      )
+        expect {
+          legislature_2.save!
+        }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
   end
