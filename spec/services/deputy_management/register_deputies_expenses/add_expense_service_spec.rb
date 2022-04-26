@@ -34,6 +34,7 @@ describe 'AddExpenseService' do
     it 'Should save deputy expense' do
       deputy = create(:deputy)
       legislature = create(:legislature, deputy: deputy)
+      deputy.reload
       expect{
         AddExpenseService.new.call(
           deputy: deputy, 
