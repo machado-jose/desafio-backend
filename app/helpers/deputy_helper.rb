@@ -1,6 +1,14 @@
 module DeputyHelper
-  def set_issuance_date(issuance_date:)
-    issuance_date.present? ? issuance_date.strftime("%d/%m/%Y") : 'Não Informado'
+  def set_issuance_date(issuance_date:, lang: 'pt')
+    return 'Não Informado' unless issuance_date.present?
+    case lang
+    when 'pt'
+      return issuance_date.strftime("%d/%m/%Y")
+    when 'en'
+      return issuance_date.strftime("%Y-%m-%d")
+    else
+      return 'Não Informado'
+    end
   end
 
   def set_provider(provider:)

@@ -47,14 +47,28 @@
             <tbody>
               <% @deputy.all_expense_of_year(year: '2021').each do |deputy_expense| %>
                 <tr>
-                  <td><%= set_issuance_date(issuance_date: deputy_expense.issuance_date) %></td>
+                  <td data-sort="<%= set_issuance_date(issuance_date: deputy_expense.issuance_date, lang: 'en') %>">
+                    <span><%= set_issuance_date(issuance_date: deputy_expense.issuance_date, lang: 'pt') %></span>
+                  </td>
                   <td><%= set_provider(provider: deputy_expense.provider) %></td>
-                  <td><%= number_to_currency(deputy_expense.net_value, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+                  <td data-sort="<%= deputy_expense.net_value.to_i %>"><%= number_to_currency(deputy_expense.net_value, unit: "R$ ", separator: ",", delimiter: ".") %></td>
                   <td><%= set_document_url(document_url: deputy_expense.document_url) %></td>
                 </tr>
               <% end %>
             </tbody>
           </table>
+        </div>
+      </div> 
+    </div> 
+  </div> 
+</div>
+
+<div class="ex-basic-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="text-container dark">
+          
         </div>
       </div> 
     </div> 
