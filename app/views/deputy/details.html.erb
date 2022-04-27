@@ -21,6 +21,16 @@
     <div class="row mt-4">
       <div class='col-md-12'>
         <h3>
+          <strong>Código do Deputado: </strong>
+          <span>
+            <%= @deputy.ide_register %>
+          </span>
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class='col-md-12'>
+        <h3>
           <strong>Maior Gasto em 2021: </strong>
           <span>
             <%= number_to_currency(@deputy.biggest_expense_of_year(year: '2021').net_value, unit: "R$ ", separator: ",", delimiter: ".") %>
