@@ -27,6 +27,10 @@ class DeputyController < ApplicationController
   end
 
   def rank
-    @deputies = Deputy.includes(legislatures: :deputy_expenses).all
+    @deputies = Deputy.includes(:legislatures).all
+  end
+
+  def details
+    @deputy = Deputy.includes(:legislatures).find(params[:id])
   end
 end

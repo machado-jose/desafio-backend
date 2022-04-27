@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.6.0/jszip-2.5.0/dt-1.11.5/af-2.3.7/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/cr-1.5.5/date-1.1.2/fc-4.0.2/fh-3.2.2/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.min.css"/>
+
 <header id="header" class="ex-header">
   <div class="container">
     <div class="row">
@@ -13,29 +15,42 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="text-container dark">
-            <table class="table table-striped">
-              <thead>
+          <table id='rank_deputy_table' class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Deputado</th>
+                <th scope="col">Total de Gasto</th>
+                <th scope="col">Maior Gasto</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @deputies.each do |deputy| %>
                 <tr>
-                  <th scope="col">Deputado</th>
-                  <th scope="col">Total de Gasto</th>
-                  <th scope="col">Maior Gasto</th>
-                  <th scope="col">Ações</th>
+                  <td><%= deputy.name %></td>
+                  <td><%= number_to_currency(deputy.total_expense_of_year(year: '2021'), unit: "R$ ", separator: ",", delimiter: ".") %></td>
+                  <td><%= number_to_currency(deputy.biggest_expense_of_year(year: '2021').net_value, unit: "R$ ", separator: ",", delimiter: ".") %></td>
+                  <td><a href='/deputy/details?id=<%= deputy.id %>' class='btn btn-sm btn-primary'><i class='fa fa-eye'></i></a></td>
                 </tr>
-              </thead>
-              <tbody>
-                <% @deputies.each do |deputy| %>
-                  <tr>
-                    <td><%= deputy.name %></td>
-                    <td><%= deputy.total_expense_of_year(year: '2021') %></td>
-                    <td><%= deputy.biggest_expense_of_year(year: '2021').net_value %></td>
-                    <td></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div> 
     </div> 
   </div> 
 </div> 
 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/jszip-2.5.0/dt-1.11.5/af-2.3.7/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/cr-1.5.5/date-1.1.2/fc-4.0.2/fh-3.2.2/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
+
+<script>
+  $(window).on('load', function() {
+    $("#rank_deputy_table").DataTable({
+      "info": false,
+      "dom": 'ftp',
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json"
+      }
+    })
+  })
+</script>

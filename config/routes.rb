@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get :index
     post :submit_csv
     get :rank
+    get :details
   end
 
   root to: "deputy#index"
