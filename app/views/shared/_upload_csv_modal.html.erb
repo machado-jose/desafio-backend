@@ -2,15 +2,21 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <p>Adiciona o arquivo CSV</p>
+        <h5 class="modal-title">Análise dos Gastos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <%= form_with(url: '/deputy/submit_csv') do |form| %>
+      <%= form_with(url: '/deputy/submit_csv', multipart: true) do |form| %>
         <input type='hidden' name='uf' value='RJ'>
         <div class="modal-body">
-            <%= form.file_field :file %>
+          <div class="custom-file mb-3">
+            <label for="formFile" class="custom-file-label">Selecione um arquivo csv</label>
+            <input class="custom-file-input" type="file" name='file' id="formFile" accept="txt/*">
+          </div>
         </div>
         <div class='modal-footer'>
-          <%= form.submit "Enviar" %>
+          <%= form.submit "Enviar", class: 'btn btn-success' %>
         </div>
       <% end %>
     </div>
