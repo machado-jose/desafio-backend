@@ -2201,3 +2201,11 @@ a:hover.back-to-top {
     .4s ease-in-out transform,
     .4s ease-in-out box-shadow;
 }
+
+.branch-style {
+	color: white!important;
+}
+
+.custom-nav-bar {
+	background-color: rgba(0, 123, 255, 0.6);
+}
