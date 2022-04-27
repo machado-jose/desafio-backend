@@ -6,7 +6,6 @@ require './app/services/infrastructure/parse_csv_file_service.rb'
 
 class DeputyController < ApplicationController
   def index
-
   end
   
   def submit_csv
@@ -15,12 +14,19 @@ class DeputyController < ApplicationController
                                                           parse_csv_file_service: parse_csv_file_service, 
                                                           uf: params[:uf]
                                                         ).call
-    ActiveRecord::Base.transaction do
-      AnalyzeExpenseDataService.new(
-                                    expense_data: expense_data, 
-                                    create_deputy_service: CreateDeputyService.new, 
-                                    add_expense_service: AddExpenseService.new
-                                  ).call
+    Thread.new do
+      ActiveRecord::Base.transaction do
+        AnalyzeExpenseDataService.new(
+                                      expense_data: expense_data, 
+                                      create_deputy_service: CreateDeputyService.new, 
+                                      add_expense_service: AddExpenseService.new
+                                    ).call
+      end
     end
+    redirect_to deputy_rank_path
+  end
+
+  def rank
+    @deputies = Deputy.includes(legislatures: :deputy_expenses).all
   end
 end

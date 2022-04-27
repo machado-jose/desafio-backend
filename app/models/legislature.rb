@@ -46,7 +46,7 @@ class Legislature < ApplicationRecord
 
   def all_deputy_expense_of_year(year:)
     Validator.assert_empty_string year
-    self.deputy_expenses.where(expense_year: year)
+    self.deputy_expenses.select{ |deputy_expense| deputy_expense.expense_year.eql? year }
   end
 
   private

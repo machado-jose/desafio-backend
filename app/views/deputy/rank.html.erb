@@ -1,0 +1,41 @@
+<header id="header" class="ex-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Rank dos Gastos dos Deputados do RJ</h1>
+      </div> 
+    </div>
+  </div>
+</header>
+
+<div class="ex-basic-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="text-container dark">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Deputado</th>
+                  <th scope="col">Total de Gasto</th>
+                  <th scope="col">Maior Gasto</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @deputies.each do |deputy| %>
+                  <tr>
+                    <td><%= deputy.name %></td>
+                    <td><%= deputy.total_expense_of_year(year: '2021') %></td>
+                    <td><%= deputy.biggest_expense_of_year(year: '2021').net_value %></td>
+                    <td></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+        </div>
+      </div> 
+    </div> 
+  </div> 
+</div> 
+

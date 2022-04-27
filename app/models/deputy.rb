@@ -1,5 +1,5 @@
 class Deputy < ApplicationRecord
-  has_many :legislatures, -> { includes(:deputy_expenses) }, inverse_of: :deputy
+  has_many :legislatures, inverse_of: :deputy
   validates :name, presence: { strict: true }
   validates :ide_register, presence: { strict: true }, uniqueness: { strict: true }
   validates :deputy_wallet_number, presence: { strict: true }, uniqueness: { strict: true }
@@ -31,6 +31,10 @@ class Deputy < ApplicationRecord
   def find_legislature(legislature_code:)
     self.legislatures.select{ |legislature| legislature.legislature_code.eql? legislature_code }
                      .first
+  end
+
+  def total_expense_of_year(year:)
+    self.all_expense_of_year(year: year).reduce(0){ |t, expense| t + expense.net_value }
   end
 
   private
