@@ -2140,12 +2140,12 @@ a:hover.back-to-top {
 	/* Footer */
 	.footer .footer-col.first {
 		display: inline-block;
-		width: 14rem;
+		width: 25rem;
 		margin-right: 2.5rem;
 	}
 	
 	.footer .footer-col.second {
-		width: 14rem;
+		width: 25rem;
 		margin-right: 2.25rem;
 	}
 
@@ -2208,4 +2208,14 @@ a:hover.back-to-top {
 
 .custom-nav-bar {
 	background-color: rgba(0, 123, 255, 0.6);
+}
+
+.back-btn-custom {
+	border-color: white;
+  color: white;
+}
+
+.btn-outline-sm:hover{
+	background-color: transparent;
+	border-color: white;
 }

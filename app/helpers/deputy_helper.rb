@@ -16,7 +16,7 @@ module DeputyHelper
   end
 
   def set_document_url(document_url:)
-    document_url.present? ? "<a href='#{document_url}' target='_blank' class='btn btn-sm btn-success'><i class='fa fa-download'></i></a>".html_safe : 'Não Informado'
+    document_url.present? ? "<a href='#{document_url}' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-download'></i></a>".html_safe : 'Não Informado'
   end
 
   def set_chart_labels(expenses_by_month:)
