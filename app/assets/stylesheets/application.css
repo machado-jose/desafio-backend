@@ -1440,11 +1440,17 @@ a:hover.back-to-top {
 /***************************/
 /*     17. Extra Pages     */
 /***************************/
-.ex-header {
+/* .ex-header {
 	padding-top: 8rem;
 	padding-bottom: 5rem;
 	background-color: #f7fafd;
 	text-align: center;
+} */
+
+.ext-header {
+	padding-top: 6rem;
+	padding-bottom: 3rem;
+	background-color: #f7fafd;
 }
 
 .ex-basic-1 {

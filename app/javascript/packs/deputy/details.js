@@ -8,6 +8,9 @@ document.addEventListener('turbolinks:load', () => {
     labels: JSON.parse(ctx.canvas.dataset.labels),
     datasets: [{
       data: JSON.parse(ctx.canvas.dataset.data),
+      backgroundColor: "rgba(0, 123, 255, 0.6)",
+      borderColor: 'rgb(0, 123, 255)',
+      borderWidth: 1
     }]
   },
   options: {
@@ -15,7 +18,7 @@ document.addEventListener('turbolinks:load', () => {
       y: {
         ticks: {
           callback: function(value, index, ticks) {
-            return 'R$ ' + value;
+            return 'R$ ' + value + ',00';
           }
         }
       }
@@ -35,4 +38,3 @@ document.addEventListener('turbolinks:load', () => {
   }
   });
 })
-
