@@ -319,6 +319,7 @@ describe 'Legislature' do
       deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
       deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
       deputy_expense_3 = create(:deputy_expense, legislature: @legislature, expense_year: '2020')
+      @legislature.reload
       all_deputy_expenses = @legislature.all_deputy_expense_of_year(year: '2021')
       expect(all_deputy_expenses.count).to eq(2)
       expect(all_deputy_expenses).to include(deputy_expense_1)
@@ -328,6 +329,7 @@ describe 'Legislature' do
     it 'Should return empty array' do
       deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
       deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021')
+      @legislature.reload
       expect(@legislature.all_deputy_expense_of_year(year: '2020').empty?).to be_truthy
     end
 
