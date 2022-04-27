@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_26_230832) do
+ActiveRecord::Schema.define(version: 2022_04_26_224924) do
 
   create_table "deputies", force: :cascade do |t|
     t.string "name"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 2022_04_26_230832) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "document_url"
-    t.index ["legislature_id", "document_number"], name: "index_fm_deputy_expenses_on_legisl_id_and_doc_number", unique: true
     t.index ["legislature_id"], name: "index_financial_management_deputy_expenses_on_legislature_id"
   end
 

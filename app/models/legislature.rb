@@ -15,33 +15,32 @@ class Legislature < ApplicationRecord
                          provider:, provider_registration_number:, document_number:, document_type:, issuance_date:, document_value:, 
                          reverse_value:, net_value:, expense_month:, expense_year:, installment_number:, passager:, leg_trip:, batch_number:, 
                          reimbursement_number:, refund_value:, applicant_identifier:, document_url:)
-    unless has_deputy_expense?(document_number: document_number)
-      self.deputy_expenses << FinancialManagement::DeputyExpense.new(
-                                                                      legislature: self, 
-                                                                      sub_quota_number: sub_quota_number, 
-                                                                      sub_quota_description: sub_quota_description, 
-                                                                      sub_quota_specification_number: sub_quota_specification_number, 
-                                                                      sub_quota_specification_description: sub_quota_specification_description, 
-                                                                      provider: provider, 
-                                                                      provider_registration_number: provider_registration_number, 
-                                                                      document_number: document_number,
-                                                                      document_type: document_type, 
-                                                                      issuance_date: issuance_date, 
-                                                                      document_value: document_value, 
-                                                                      reverse_value: reverse_value, 
-                                                                      net_value: net_value, 
-                                                                      expense_month: expense_month,
-                                                                      expense_year: expense_year,
-                                                                      installment_number: installment_number, 
-                                                                      passager: passager, 
-                                                                      leg_trip: leg_trip, 
-                                                                      batch_number: batch_number, 
-                                                                      reimbursement_number: reimbursement_number, 
-                                                                      refund_value: refund_value, 
-                                                                      applicant_identifier: applicant_identifier,
-                                                                      document_url: document_url
-                                                                    )
-    end
+    self.deputy_expenses << FinancialManagement::DeputyExpense.new(
+                                                                    legislature: self, 
+                                                                    sub_quota_number: sub_quota_number, 
+                                                                    sub_quota_description: sub_quota_description, 
+                                                                    sub_quota_specification_number: sub_quota_specification_number, 
+                                                                    sub_quota_specification_description: sub_quota_specification_description, 
+                                                                    provider: provider, 
+                                                                    provider_registration_number: provider_registration_number, 
+                                                                    document_number: document_number,
+                                                                    document_type: document_type, 
+                                                                    issuance_date: issuance_date, 
+                                                                    document_value: document_value, 
+                                                                    reverse_value: reverse_value, 
+                                                                    net_value: net_value, 
+                                                                    expense_month: expense_month,
+                                                                    expense_year: expense_year,
+                                                                    installment_number: installment_number, 
+                                                                    passager: passager, 
+                                                                    leg_trip: leg_trip, 
+                                                                    batch_number: batch_number, 
+                                                                    reimbursement_number: reimbursement_number, 
+                                                                    refund_value: refund_value, 
+                                                                    applicant_identifier: applicant_identifier,
+                                                                    document_url: document_url
+                                                                  )
+    
   end
 
   def all_deputy_expense_of_year(year:)
@@ -53,14 +52,5 @@ class Legislature < ApplicationRecord
   def upcase_legislature_data
     self.party_acronym = self.party_acronym.upcase
     self.uf = self.uf.upcase
-  end
-
-  def has_deputy_expense?(document_number:)
-    find_deputy_expense(document_number: document_number).present?
-  end
-
-  def find_deputy_expense(document_number:)
-    self.deputy_expenses.select{ |deputy_expense| deputy_expense.document_number.eql? document_number }
-                        .first
   end
 end

@@ -53,21 +53,6 @@ describe 'AnalyzeExpenseDataService' do
       expect(legislature.all_deputy_expense_of_year(year: "2021").first.net_value).to eq(3500)
     end
 
-    it 'Should not create deputy expense object with same data' do
-      AnalyzeExpenseDataService.new(
-        expense_data: @expense_data, 
-        create_deputy_service: CreateDeputyService.new, 
-        add_expense_service: AddExpenseService.new
-      ).call
-      expect{
-        AnalyzeExpenseDataService.new(
-          expense_data: @expense_data, 
-          create_deputy_service: CreateDeputyService.new, 
-          add_expense_service: AddExpenseService.new
-        ).call
-      }.to change { FinancialManagement::DeputyExpense.count }.by(0)
-    end
-
     it 'Should create new legislature and add expense' do
       AnalyzeExpenseDataService.new(
         expense_data: @expense_data, 
