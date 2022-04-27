@@ -95,15 +95,15 @@ a:hover {
 }
 
 a.red {
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 }
 
 .btn-solid-reg {
 	display: inline-block;
 	padding: 1.1875rem 2.125rem 1.1875rem 2.125rem;
-	border: 0.125rem solid #ff556e;
+	border: 0.125rem solid rgb(0, 123, 255);
 	border-radius: 2rem;
-	background-color: #ff556e;
+	background-color: rgb(0, 123, 255);
 	color: #fff;
 	font: 700 0.875rem/0 "Open Sans", sans-serif;
 	text-decoration: none;
@@ -111,18 +111,18 @@ a.red {
 }
 
 .btn-solid-reg:hover {
-	border: 0.125rem solid #ff556e;
+	border: 0.125rem solid rgb(0, 123, 255);
 	background-color: transparent;
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 	text-decoration: none;
 }
 
 .btn-solid-lg {
 	display: inline-block;
 	padding: 1.5rem 2.375rem 1.5rem 2.375rem;
-	border: 0.125rem solid #ff556e;
+	border: 0.125rem solid rgb(0, 123, 255);
 	border-radius: 2rem;
-	background-color: #ff556e;
+	background-color: rgb(0, 123, 255);
 	color: #fff;
 	font: 700 0.875rem/0 "Open Sans", sans-serif;
 	text-decoration: none;
@@ -130,9 +130,9 @@ a.red {
 }
 
 .btn-solid-lg:hover {
-	border: 0.125rem solid #ff556e;
+	border: 0.125rem solid rgb(0, 123, 255);
 	background-color: transparent;
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 	text-decoration: none;
 }
 
@@ -343,9 +343,9 @@ input[type='checkbox'] {
 	display: inline-block;
 	width: 100%;
 	height: 3.125rem;
-	border: 0.125rem solid #ff556e;
+	border: 0.125rem solid rgb(0, 123, 255);
 	border-radius: 1.5rem;
-	background-color: #ff556e;
+	background-color: rgb(0, 123, 255);
 	color: #fff;
 	font: 700 0.875rem/0 "Open Sans", sans-serif;
 	cursor: pointer;
@@ -353,9 +353,9 @@ input[type='checkbox'] {
 }
 
 .form-control-submit-button:hover {
-	border: 0.125rem solid #ff556e;
+	border: 0.125rem solid rgb(0, 123, 255);
 	background-color: transparent;
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 }
 
 /* Form Success And Error Message Formatting */
@@ -363,7 +363,7 @@ input[type='checkbox'] {
 #pmsgSubmit.h3.text-center {
 	display: block;
 	margin-bottom: 0;
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 	font-weight: 400;
 	font-size: 1.125rem;
 	line-height: 1rem;
@@ -569,7 +569,7 @@ input[type='checkbox'] {
 	width: 1rem;
 	height: 1rem;
 	border-radius: 100%;
-	background-color: #ff556e;
+	background-color: rgb(0, 123, 255);
 	-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
@@ -637,7 +637,7 @@ input[type='checkbox'] {
 
 .navbar-custom .nav-item .nav-link:hover,
 .navbar-custom .nav-item .nav-link.active {
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 }
 
 /* Dropdown Menu */
@@ -686,7 +686,7 @@ input[type='checkbox'] {
 }
 
 .navbar-custom .dropdown-item:hover .item-text {
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 }
 
 .navbar-custom .dropdown-divider {
@@ -703,13 +703,13 @@ input[type='checkbox'] {
 	margin-top: 0.125rem;
 	margin-bottom: 1.375rem;
 	margin-left: 0.5rem;
-	border: 0.125rem solid #ff556e;
-	color: #ff556e;
+	border: 0.125rem solid rgb(0, 123, 255);
+	color: rgb(0, 123, 255);
 }
 
 .navbar-custom .nav-item .btn-outline-sm:hover {
-	border: 0.125rem solid #ff556e;
-	background-color: #ff556e;
+	border: 0.125rem solid rgb(0, 123, 255);
+	background-color: rgb(0, 123, 255);
 	color: #fff;
 }
 
@@ -826,7 +826,7 @@ input[type='checkbox'] {
 }
 
 .cards-1 .card-image.red .fas {
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 }
 
 .cards-1 .card-image.yellow {
@@ -948,7 +948,7 @@ input[type='checkbox'] {
 }
 
 .lightbox-basic .btn-solid-reg.mfp-close:hover {
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 }
 /* end of action Button */
 
@@ -1093,7 +1093,7 @@ input[type='checkbox'] {
 }
 
 .basic-2 .fa-stack-2x.red {
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 }
 
 .basic-2 .fa-stack-2x.yellow {
@@ -1261,7 +1261,7 @@ input[type='checkbox'] {
 }
 
 .counter #counter .fas.red {
-	color: #ff556e;
+	color: rgb(0, 123, 255);
 }
 
 .counter #counter .fas.yellow {
@@ -1648,7 +1648,7 @@ a:hover.back-to-top {
 
 	.navbar-custom.top-nav-collapse .nav-item .nav-link:hover,
 	.navbar-custom.top-nav-collapse .nav-item .nav-link.active {
-		color: #ff556e;
+		color: rgb(0, 123, 255);
 	}
 
 	.navbar-custom .dropdown-menu {
