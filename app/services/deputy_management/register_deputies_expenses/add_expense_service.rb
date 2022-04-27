@@ -15,7 +15,7 @@ class AddExpenseService
       provider_registration_number: provider_registration_number, 
       document_number: document_number, 
       document_type: document_type.to_i, 
-      issuance_date: issuance_date.to_date, 
+      issuance_date: (issuance_date.present? ? issuance_date.to_date : nil), 
       document_value: document_value, 
       reverse_value: reverse_value.to_d, 
       net_value: net_value.to_d, 
