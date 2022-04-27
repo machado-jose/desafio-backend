@@ -14,7 +14,7 @@ class DeputyController < ApplicationController
                                                           parse_csv_file_service: parse_csv_file_service, 
                                                           uf: "RJ"
                                                         ).call
-    # Thread.new do
+    Thread.new do
       ActiveRecord::Base.transaction do
         AnalyzeExpenseDataService.new(
                                       expense_data: expense_data, 
@@ -22,7 +22,7 @@ class DeputyController < ApplicationController
                                       add_expense_service: AddExpenseService.new
                                     ).call
       end
-    # end
+    end
     redirect_to deputy_rank_path
   end
 
