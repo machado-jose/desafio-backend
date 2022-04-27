@@ -12,7 +12,7 @@ class DeputyController < ApplicationController
     parse_csv_file_service = ParseCsvFileService.new(file: params[:file])
     expense_data = ExtractExpenseDataFromCsvService.new(
                                                           parse_csv_file_service: parse_csv_file_service, 
-                                                          uf: params[:uf]
+                                                          uf: "RJ"
                                                         ).call
     Thread.new do
       ActiveRecord::Base.transaction do

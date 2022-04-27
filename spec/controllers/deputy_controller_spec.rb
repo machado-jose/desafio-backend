@@ -17,13 +17,13 @@ RSpec.describe DeputyController, type: :controller do
                                                   .with(parse_csv_file_service: parse_csv_file_service, uf: "RJ")
                                                   .and_return(extract_expense_data_from_csv_service)
       expect(extract_expense_data_from_csv_service).to receive(:call).and_return({})
-      post :submit_csv, params: {file: @file, uf: 'RJ'}
+      post :submit_csv, params: {file: @file}
     end
 
     it 'Should save deputies, legislatures and deputy expenses by file' do
       expect {
         post :submit_csv, params: {file: @file}
-      }.to change { FinancialManagement::DeputyExpense.count }.by(2).and change { Legislature.count }.by(2).and change { Deputy.count }.by(2) 
+      }.to change { FinancialManagement::DeputyExpense.count }.by(1).and change { Legislature.count }.by(1).and change { Deputy.count }.by(1) 
     end
 
     it 'Should back to transaction when raise an error' do
