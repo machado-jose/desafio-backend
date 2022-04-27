@@ -32,5 +32,6 @@ class DeputyController < ApplicationController
 
   def details
     @deputy = Deputy.includes(:legislatures).find(params[:id])
+    @expenses_by_month = @deputy.expenses_for_every_month_of_year(year: '2021')
   end
 end

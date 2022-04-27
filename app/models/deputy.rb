@@ -37,6 +37,13 @@ class Deputy < ApplicationRecord
     self.all_expense_of_year(year: year).reduce(0){ |t, expense| t + expense.net_value }
   end
 
+  def expenses_for_every_month_of_year(year:)
+    self.all_expense_of_year(year: year)
+        .group_by(&:expense_month)
+        .sort_by{ |month, _| month.to_i }
+        .to_h
+  end
+
   private
   def upcase_deputy_data
     self.name = self.name.upcase
