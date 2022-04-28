@@ -46,7 +46,23 @@ describe 'DeputyHelper', type: :helper do
       end
 
       it 'when provider is empty' do
-        expect(helper.set_provider(provider: @date)).to eq('Não Informado')
+        expect(helper.set_provider(provider: '')).to eq('Não Informado')
+      end
+    end
+  end
+
+  context '#set_document_url' do
+    it 'Should return document url link' do
+      expect(helper.set_document_url(document_url: 'any_document_url')).to eq("<a href='any_document_url' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-download'></i></a>".html_safe)
+    end
+
+    context "Should return 'Não Informado'" do
+      it 'when document_url is nil' do
+        expect(helper.set_document_url(document_url: nil)).to eq('Não Informado')
+      end
+
+      it 'when document_url is empty' do
+        expect(helper.set_document_url(document_url: '')).to eq('Não Informado')
       end
     end
   end
