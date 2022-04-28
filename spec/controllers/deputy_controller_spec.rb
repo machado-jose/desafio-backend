@@ -3,6 +3,13 @@ require './app/services/deputy_management/register_deputies_expenses/extract_exp
 require './app/services/infrastructure/parse_csv_file_service.rb'
 
 RSpec.describe DeputyController, type: :controller do
+  context '#index' do
+    it 'Should return status code 200' do
+      get :index
+      expect(response).to have_http_status(200)
+    end
+  end
+
   context '#submit_csv' do
     before :each do
       @file = fixture_file_upload('services/register_deputies_expenses/Ano-2021.csv', 'text/csv')
