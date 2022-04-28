@@ -6,6 +6,7 @@ RSpec.describe DeputyController, type: :controller do
   context '#submit_csv' do
     before :each do
       @file = fixture_file_upload('services/register_deputies_expenses/Ano-2021.csv', 'text/csv')
+      allow(Thread).to receive(:new).and_yield
     end
 
     it 'Should pass file and uf to ExtractExpenseDataFromCsvService' do
@@ -16,7 +17,7 @@ RSpec.describe DeputyController, type: :controller do
       expect(ExtractExpenseDataFromCsvService).to receive(:new)
                                                   .with(parse_csv_file_service: parse_csv_file_service, uf: "RJ")
                                                   .and_return(extract_expense_data_from_csv_service)
-      expect(extract_expense_data_from_csv_service).to receive(:call).and_return({})
+      expect(extract_expense_data_from_csv_service).to receive(:call).and_return({"111" => [{'numAno' => '2021'}]})
       post :submit_csv, params: {file: @file}
     end
 
@@ -33,6 +34,35 @@ RSpec.describe DeputyController, type: :controller do
       expect {
         post :submit_csv, params: {file: @file}
       }.to change { Deputy.count }.by(0)
+    end
+
+    context 'Should redirect to root path' do
+      before :each do
+        allow(ActionDispatch::Http::UploadedFile).to receive(:new).and_return(@file)
+        parse_csv_file_service = instance_double(ParseCsvFileService)
+        expect(ParseCsvFileService).to receive(:new).with(file: @file).and_return(parse_csv_file_service)
+        @extract_expense_data_from_csv_service = instance_double(ExtractExpenseDataFromCsvService)
+        expect(ExtractExpenseDataFromCsvService).to receive(:new)
+                                                    .with(parse_csv_file_service: parse_csv_file_service, uf: "RJ")
+                                                    .and_return(@extract_expense_data_from_csv_service)
+      end
+
+      it 'when expense_data is empty' do
+        expect(@extract_expense_data_from_csv_service).to receive(:call).and_return({})
+        post :submit_csv, params: {file: @file}
+        expect(response).to redirect_to(root_url)
+      end
+
+      it 'when file was submitted' do
+        expect(@extract_expense_data_from_csv_service).to receive(:call).and_return({"111" => [{'numAno' => '2021'}]})
+        create_file_control_service = instance_double(CreateFileControlService)
+        expect(CreateFileControlService).to receive(:new)
+                                                    .with(expense_year: '2021')
+                                                    .and_return(create_file_control_service)
+        expect(create_file_control_service).to receive(:call).and_return(false)
+        post :submit_csv, params: {file: @file}
+        expect(response).to redirect_to(root_url)
+      end
     end
   end
 end
