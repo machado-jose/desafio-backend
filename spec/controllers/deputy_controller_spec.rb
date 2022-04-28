@@ -72,4 +72,18 @@ RSpec.describe DeputyController, type: :controller do
       end
     end
   end
+
+  context '#rank' do
+    it 'Should return all deputies' do
+      create(:deputy)
+      create(:deputy)
+      get :rank
+      expect(assigns(:deputies).count).to eq(2)
+    end
+
+    it 'Should return empty' do
+      get :rank
+      expect(assigns(:deputies).empty?).to be_truthy
+    end
+  end
 end
