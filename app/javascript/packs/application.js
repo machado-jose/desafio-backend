@@ -22,7 +22,7 @@ window.toastr = toastr
 
 const images = require.context('../images', true)
 
-$(window).on('load', function() {
+document.addEventListener('turbolinks:load', () => {
   var preloaderFadeOutTime = 500
   function hidePreloader() {
     var preloader = $('.spinner-wrapper')
@@ -30,6 +30,7 @@ $(window).on('load', function() {
       preloader.fadeOut(preloaderFadeOutTime)
     }, 500)
   }
+
   hidePreloader()
 
   $(".custom-file-input").on("change", function() {
