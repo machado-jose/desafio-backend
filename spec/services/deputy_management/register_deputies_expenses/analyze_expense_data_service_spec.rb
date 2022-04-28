@@ -70,5 +70,16 @@ describe 'AnalyzeExpenseDataService' do
         ).call
       }.to change { FinancialManagement::DeputyExpense.count }.by(1).and change { Legislature.count }.by(1).and change { Deputy.count }.by(0)
     end
+
+    it 'Should add expense with not specified document type' do
+      @expense_data["141405"].first["indTipoDocumento"] = "4"
+      AnalyzeExpenseDataService.new(
+        expense_data: @expense_data, 
+        create_deputy_service: CreateDeputyService.new, 
+        add_expense_service: AddExpenseService.new
+      ).call
+      deputy_expense = FinancialManagement::DeputyExpense.first
+      expect(deputy_expense.not_specified?).to be_truthy
+    end
   end
 end
