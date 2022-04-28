@@ -20,6 +20,7 @@ module DeputyHelper
   end
 
   def set_chart_labels(expenses_by_month:)
+    return [].to_json if expenses_by_month.nil? or expenses_by_month.empty?
     expenses_by_month.keys
                      .map{ |month| translate_months(month_to_translate: Date::MONTHNAMES[month.to_i]) }
                      .to_json
