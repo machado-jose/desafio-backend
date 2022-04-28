@@ -13,4 +13,4 @@ Rails.application.config.assets.precompile += ['node_modules/toastr/build/toastr
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-# Rails.application.config.assets.precompile += %w( admin.js admin.css )
+Rails.application.config.assets.precompile += %w( application_static.js deputy/rank_static.js deputy/details_static.js )

@@ -41,13 +41,6 @@
     </div>
   </div>
 
-  <script>
-    console.log('oi')
-    $(function(){
-      body = document.querySelector('body')
-      if(body.dataset.flashMessage.length > 0){
-        toastr.info(body.dataset.flashMessage)
-      }
-    })
-  </script>
+  <%= javascript_include_tag "application_static.js" %>
+  
 </html>

@@ -4,7 +4,7 @@
   <div class="container-fluid">
     <a class="navbar-brand text-decoration-none branch-style" href="/">Rank de Gastos</a> 
   </div> 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+  <div class="collapse navbar-collapse">
     <span class="nav-item">
       <a class="btn-outline-sm back-btn-custom" href="/deputy/rank">Voltar</a>
     </span>
@@ -51,8 +51,8 @@
           </div>
         </div>
       </div>
-      <div class='col-md-4'>
-        <img class="img-fluid" src="http://www.camara.leg.br/internet/deputado/bandep/<%= @deputy.ide_register %>.jpg" alt="alternative">
+      <div class='col-md-4 text-center'>
+        <img class="img-fluid" src="http://www.camara.leg.br/internet/deputado/bandep/<%= @deputy.ide_register %>.jpg" alt="Deputado">
       </div>
     </div>
   </div>
@@ -113,22 +113,4 @@
   <%= javascript_pack_tag 'src/deputy/details', 'data-turbolinks-track': 'reload' %>
 <% end %>
 
-<script>
-  $(window).on('load', function() {
-    $("#deputy_expense_table").DataTable({
-      "info": false,
-      "dom": 'ftp',
-      "deferRender": false,
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json"
-      },
-      order: [[2, 'desc'], [0, 'desc'], [1, 'asc']],
-      "pageLength": 20,
-      responsive: true,
-      columnDefs: [
-        { className: 'text-center', targets: [0, 1, 2, 3]}
-      ],
-      "initComplete": function(settings, json){}
-    })
-  })
-</script>
+<%= javascript_include_tag "deputy/details_static.js" %>
