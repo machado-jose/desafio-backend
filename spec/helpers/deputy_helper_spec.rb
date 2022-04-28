@@ -86,4 +86,24 @@ describe 'DeputyHelper', type: :helper do
       end
     end
   end
+
+  context '#set_chart_data' do
+    it 'Should return expense months' do
+      deputy_expense = create(:deputy_expense, expense_month: '3', expense_year: '2021', net_value: 60.0)
+      deputy = deputy_expense.legislature.deputy
+      deputy.reload
+      expenses_by_month = deputy.expenses_for_every_month_of_year(year: '2021')
+      expect(helper.set_chart_data(expenses_by_month: expenses_by_month)).to eq([60.0].to_json)
+    end
+
+    context 'Should return empty' do
+      it 'when expenses_by_month is empty' do
+        expect(helper.set_chart_data(expenses_by_month: [])).to eq([].to_json)
+      end
+
+      it 'when expenses_by_month is nil' do
+        expect(helper.set_chart_data(expenses_by_month: nil)).to eq([].to_json)
+      end
+    end
+  end
 end
