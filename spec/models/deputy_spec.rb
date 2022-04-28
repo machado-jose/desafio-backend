@@ -225,4 +225,38 @@ describe 'Deputy' do
       end
     end
   end
+
+  context '#expenses_for_every_month_of_year' do
+    before :each do
+      @deputy = create(:deputy)
+      @legislature = create(:legislature, deputy: @deputy)
+    end
+
+    it 'Should return deputy expenses for every month of year' do
+      deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_month: '2', expense_year: '2021', net_value: 200.0)
+      deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_month: '2', expense_year: '2021', net_value: 600.0)
+      deputy_expense_3 = create(:deputy_expense, legislature: @legislature, expense_month: '3', expense_year: '2021', net_value: 400.0)
+      deputy_expense_4 = create(:deputy_expense, legislature: @legislature, expense_month: '3', expense_year: '2020', net_value: 1000.0)
+      @deputy.reload
+      response = @deputy.expenses_for_every_month_of_year(year: '2021')
+      expect(response['2'].count).to eq(2)
+      expect(response['3'].count).to eq(1)
+    end
+  end
+
+  context '#total_expense_of_year' do
+    before :each do
+      @deputy = create(:deputy)
+      @legislature = create(:legislature, deputy: @deputy)
+    end
+
+    it 'Should return sum total of expense net value' do
+      deputy_expense_1 = create(:deputy_expense, legislature: @legislature, expense_year: '2021', net_value: 200.0)
+      deputy_expense_2 = create(:deputy_expense, legislature: @legislature, expense_year: '2021', net_value: 600.0)
+      deputy_expense_3 = create(:deputy_expense, legislature: @legislature, expense_year: '2021', net_value: 400.0)
+      deputy_expense_4 = create(:deputy_expense, legislature: @legislature, expense_year: '2020', net_value: 1000.0)
+      @deputy.reload
+      expect(@deputy.total_expense_of_year(year: '2021')).to eq(1200.0)
+    end
+  end
 end
