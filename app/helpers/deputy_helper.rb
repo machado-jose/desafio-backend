@@ -27,6 +27,7 @@ module DeputyHelper
   end
 
   def set_chart_data(expenses_by_month:)
+    return [].to_json if expenses_by_month.nil? or expenses_by_month.empty?
     expenses_by_month.values
                      .map{ |expenses| expenses.reduce(0){ |t, expense| t + expense.net_value.to_f.round(2) } }
                      .to_json
