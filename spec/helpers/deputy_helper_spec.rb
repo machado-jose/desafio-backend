@@ -106,4 +106,66 @@ describe 'DeputyHelper', type: :helper do
       end
     end
   end
+
+  context '#translate_months' do
+    context 'Should months to pt language' do
+      it 'January' do
+        expect(helper.translate_months(month_to_translate: 'January')).to eq('Janeiro')
+      end
+
+      it 'February' do
+        expect(helper.translate_months(month_to_translate: 'February')).to eq('Fevereiro')
+      end
+
+      it 'March' do
+        expect(helper.translate_months(month_to_translate: 'March')).to eq('Março')
+      end
+
+      it 'April' do
+        expect(helper.translate_months(month_to_translate: 'April')).to eq('Abril')
+      end
+
+      it 'May' do
+        expect(helper.translate_months(month_to_translate: 'May')).to eq('Maio')
+      end
+
+      it 'June' do
+        expect(helper.translate_months(month_to_translate: 'June')).to eq('Junho')
+      end
+
+      it 'July' do
+        expect(helper.translate_months(month_to_translate: 'July')).to eq('Julho')
+      end
+
+      it 'August' do
+        expect(helper.translate_months(month_to_translate: 'August')).to eq('Agosto')
+      end
+
+      it 'September' do
+        expect(helper.translate_months(month_to_translate: 'September')).to eq('Setembro')
+      end
+
+      it 'October' do
+        expect(helper.translate_months(month_to_translate: 'October')).to eq('Outubro')
+      end
+
+      it 'November' do
+        expect(helper.translate_months(month_to_translate: 'November')).to eq('Novembro')
+      end
+
+      it 'December' do
+        expect(helper.translate_months(month_to_translate: 'December')).to eq('Dezembro')
+      end
+    end
+
+    context 'Should return empty' do
+      it 'when passing invalid month' do
+        expect(helper.translate_months(month_to_translate: 'other_string')).to eq('')
+      end
+
+      it 'when passing nil' do
+        expect(helper.translate_months(month_to_translate: nil)).to eq('')
+      end
+    end
+  end
 end
