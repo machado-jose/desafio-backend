@@ -40,7 +40,8 @@ class DeputyController < ApplicationController
   end
 
   def details
-    @deputy = Deputy.includes(:legislatures).find(params[:id])
+    @deputy = Deputy.includes(:legislatures).find_by(id: params[:id])
+    redirect_to root_path and return unless @deputy.present?
     @expenses_by_month = @deputy.expenses_for_every_month_of_year(year: '2021')
   end
 end
