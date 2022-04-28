@@ -6,6 +6,20 @@ GIT
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
 
+GIT
+  remote: https://github.com/rspec/rspec-rails.git
+  revision: 7c18efb0f987ed2d310f2298400f938e629ef032
+  branch: 4-0-maintenance
+  specs:
+    rspec-rails (4.0.2)
+      actionpack (>= 4.2)
+      activesupport (>= 4.2)
+      railties (>= 4.2)
+      rspec-core (~> 3.10)
+      rspec-expectations (~> 3.10)
+      rspec-mocks (~> 3.10)
+      rspec-support (~> 3.10)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -159,23 +173,15 @@ GEM
       ffi (~> 1.0)
     regexp_parser (2.3.0)
     rexml (3.2.5)
-    rspec-core (3.8.2)
-      rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.6)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.8.0)
-    rspec-mocks (3.8.2)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.8.0)
-    rspec-rails (3.8.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 3.8.0)
-      rspec-expectations (~> 3.8.0)
-      rspec-mocks (~> 3.8.0)
-      rspec-support (~> 3.8.0)
-    rspec-support (3.8.3)
+      rspec-support (~> 3.11.0)
+    rspec-support (3.11.0)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -250,7 +256,7 @@ DEPENDENCIES
   listen (~> 3.2)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
-  rspec-rails (= 3.8)
+  rspec-rails!
   sass-rails (>= 6)
   selenium-webdriver
   simplecov
