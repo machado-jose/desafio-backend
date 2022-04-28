@@ -86,4 +86,26 @@ RSpec.describe DeputyController, type: :controller do
       expect(assigns(:deputies).empty?).to be_truthy
     end
   end
+
+  context '#details' do
+    it 'Should return deputy without expense' do
+      deputy = create(:deputy)
+      get :details, params: { id: deputy.id }
+      expect(assigns(:deputy)).to eq(deputy)
+      expect(assigns(:expenses_by_month).empty?).to be_truthy
+    end
+
+    it 'Should return deputy with expense' do
+      deputy_expense = create(:deputy_expense, expense_year: '2021')
+      deputy = deputy_expense.legislature.deputy
+      get :details, params: { id: deputy.id }
+      expect(assigns(:deputy)).to eq(deputy)
+      expect(assigns(:expenses_by_month).empty?).to be_falsey
+    end
+
+    it 'Should redirect to root path when deputy not present' do
+      get :details, params: { id: 'any_id' }
+      expect(response).to redirect_to(root_url)
+    end
+  end
 end
