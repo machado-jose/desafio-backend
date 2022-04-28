@@ -34,4 +34,20 @@ describe 'DeputyHelper', type: :helper do
       end
     end
   end
+
+  context '#set_provider' do
+    it 'Should return provider' do
+      expect(helper.set_provider(provider: 'any_provider')).to eq('any_provider')
+    end
+
+    context "Should return 'Não Informado'" do
+      it 'when provider is nil' do
+        expect(helper.set_provider(provider: nil)).to eq('Não Informado')
+      end
+
+      it 'when provider is empty' do
+        expect(helper.set_provider(provider: @date)).to eq('Não Informado')
+      end
+    end
+  end
 end
