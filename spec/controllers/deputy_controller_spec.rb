@@ -55,6 +55,12 @@ RSpec.describe DeputyController, type: :controller do
         post :submit_csv, params: {file: @file}
         expect(response).to redirect_to(root_url)
       end
+
+      it 'when raise an erro' do
+        expect(@extract_expense_data_from_csv_service).to receive(:call).and_raise(StandardError)
+        post :submit_csv, params: {file: @file}
+        expect(response).to redirect_to(root_url)
+      end
     end
   end
 
