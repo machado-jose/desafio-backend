@@ -44,7 +44,8 @@ describe 'AnalyzeExpenseDataService' do
 
     it 'Should create deputy, legislature and deputy expense' do
       AnalyzeExpenseDataService.new(
-        expense_data: @expense_data, 
+        ide_register: "141405",
+        deputy_expense_list: @expense_data["141405"], 
         create_deputy_service: CreateDeputyService.new, 
         add_expense_service: AddExpenseService.new
       ).call
@@ -55,7 +56,8 @@ describe 'AnalyzeExpenseDataService' do
 
     it 'Should create new legislature and add expense' do
       AnalyzeExpenseDataService.new(
-        expense_data: @expense_data, 
+        ide_register: "141405",
+        deputy_expense_list: @expense_data["141405"], 
         create_deputy_service: CreateDeputyService.new, 
         add_expense_service: AddExpenseService.new
       ).call
@@ -64,7 +66,8 @@ describe 'AnalyzeExpenseDataService' do
       @expense_data["141405"].first["urlDocumento"] = "https://www.camara.leg.br/cota-parlamentar/documentos/publ/1798/2021/7206972.pdf"
       expect{
         AnalyzeExpenseDataService.new(
-          expense_data: @expense_data, 
+          ide_register: "141405",
+        deputy_expense_list: @expense_data["141405"], 
           create_deputy_service: CreateDeputyService.new, 
           add_expense_service: AddExpenseService.new
         ).call
@@ -74,7 +77,8 @@ describe 'AnalyzeExpenseDataService' do
     it 'Should add expense with not specified document type' do
       @expense_data["141405"].first["indTipoDocumento"] = "4"
       AnalyzeExpenseDataService.new(
-        expense_data: @expense_data, 
+        ide_register: "141405",
+        deputy_expense_list: @expense_data["141405"], 
         create_deputy_service: CreateDeputyService.new, 
         add_expense_service: AddExpenseService.new
       ).call
