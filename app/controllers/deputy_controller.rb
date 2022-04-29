@@ -1,7 +1,4 @@
 require './app/services/deputy_management/register_deputies_expenses/extract_expense_data_from_csv_service.rb'
-require './app/services/deputy_management/register_deputies_expenses/analyze_expense_data_service.rb'
-require './app/services/deputy_management/create_deputy_service.rb'
-require './app/services/deputy_management/register_deputies_expenses/add_expense_service.rb'
 require './app/services/infrastructure/parse_csv_file_service.rb'
 require './app/services/deputy_management/register_deputies_expenses/create_file_control_service.rb'
 
@@ -19,15 +16,10 @@ class DeputyController < ApplicationController
     expense_year = expense_data.values
                                .first
                                .first["numAno"]
-    if CreateFileControlService.new(expense_year: expense_year).call
+    unless FinancialManagement::FileControl.find_by(expense_year: expense_year).present?
+      expense_data = expense_data.sort_by{ |_, values| values.count }.to_h
       Thread.new do
-        ActiveRecord::Base.transaction do
-          AnalyzeExpenseDataService.new(
-                                        expense_data: expense_data, 
-                                        create_deputy_service: CreateDeputyService.new, 
-                                        add_expense_service: AddExpenseService.new
-                                      ).call
-        end
+        RegisterDeputyExpenseJob.perform_later(expense_data)
       end
       redirect_to deputy_rank_path, { flash: { notice: "Os dados estão sendo armazenados!" } }
     else  

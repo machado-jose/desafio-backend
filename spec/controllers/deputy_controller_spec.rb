@@ -11,9 +11,13 @@ RSpec.describe DeputyController, type: :controller do
   end
 
   context '#submit_csv' do
+    include ActiveJob::TestHelper
+
     before :each do
+      ActiveJob::Base.queue_adapter = :test
       @file = fixture_file_upload('services/register_deputies_expenses/Ano-2021.csv', 'text/csv')
       allow(Thread).to receive(:new).and_yield
+      allow(RegisterDeputyExpenseJob).to receive(:perform_later)
     end
 
     it 'Should pass file and uf to ExtractExpenseDataFromCsvService' do
@@ -26,21 +30,6 @@ RSpec.describe DeputyController, type: :controller do
                                                   .and_return(extract_expense_data_from_csv_service)
       expect(extract_expense_data_from_csv_service).to receive(:call).and_return({"111" => [{'numAno' => '2021'}]})
       post :submit_csv, params: {file: @file}
-    end
-
-    it 'Should save deputies, legislatures and deputy expenses by file' do
-      expect {
-        post :submit_csv, params: {file: @file}
-      }.to change { FinancialManagement::DeputyExpense.count }.by(1).and change { Legislature.count }.by(1).and change { Deputy.count }.by(1) 
-    end
-
-    it 'Should back to transaction when raise an error' do
-      add_expense_service = instance_double(AddExpenseService)
-      expect(AddExpenseService).to receive(:new).and_return(add_expense_service)
-      expect(add_expense_service).to receive(:call).and_raise(ActiveModel::StrictValidationFailed)
-      expect {
-        post :submit_csv, params: {file: @file}
-      }.to change { Deputy.count }.by(0)
     end
 
     context 'Should redirect to root path' do
@@ -61,12 +50,8 @@ RSpec.describe DeputyController, type: :controller do
       end
 
       it 'when file was submitted' do
+        create(:file_control, expense_year: '2021')
         expect(@extract_expense_data_from_csv_service).to receive(:call).and_return({"111" => [{'numAno' => '2021'}]})
-        create_file_control_service = instance_double(CreateFileControlService)
-        expect(CreateFileControlService).to receive(:new)
-                                                    .with(expense_year: '2021')
-                                                    .and_return(create_file_control_service)
-        expect(create_file_control_service).to receive(:call).and_return(false)
         post :submit_csv, params: {file: @file}
         expect(response).to redirect_to(root_url)
       end
