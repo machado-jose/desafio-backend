@@ -85,5 +85,19 @@ describe 'AnalyzeExpenseDataService' do
       deputy_expense = FinancialManagement::DeputyExpense.first
       expect(deputy_expense.not_specified?).to be_truthy
     end
+
+    it 'Should raise ActiveRecord::Rollback' do
+      create_deputy_service = instance_double(CreateDeputyService)
+      expect(create_deputy_service).to receive(:call).with(name: "Celso Maldaner", ide_register: "141405", deputy_wallet_number: "472")
+                                                    .and_raise(StandardError)
+      expect{
+        AnalyzeExpenseDataService.new(
+          ide_register: "141405",
+          deputy_expense_list: @expense_data["141405"], 
+          create_deputy_service: create_deputy_service, 
+          add_expense_service: AddExpenseService.new
+        ).call
+      }.to raise_error(ActiveRecord::Rollback)
+    end
   end
 end
