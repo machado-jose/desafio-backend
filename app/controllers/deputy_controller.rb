@@ -22,7 +22,7 @@ class DeputyController < ApplicationController
         Thread.new do
           RegisterDeputyExpenseJob.perform_later(expense_data)
         end
-        redirect_to root_path, { flash: { notice: "Os dados estão sendo armazenados!" } }
+        redirect_to deputy_rank_path, { flash: { notice: "Os dados estão sendo armazenados!" } }
       else  
         redirect_to root_path, { flash: { notice: "Esse arquivo já foi submetido!" } }
       end
